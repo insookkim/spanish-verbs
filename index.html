@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBF6EF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="스페인어 동사">
+<title>스페인어 동사변형 · 하루 20분</title>
+<style>
+  :root{
+    --bg:#FBF6EF; --card:#FFFFFF; --ink:#33261F; --ink2:#7A6A5F; --line:#EDE2D6;
+    --accent:#C9613C; --accent2:#A64B2C; --accent-soft:#FBEDE6;
+    --teal:#2F7E7A; --teal-soft:#E4F1F0; --teal-line:#BFDDDA;
+    --ok:#2E7D5B; --ok-soft:#E6F4EC; --bad:#B63A2B; --bad-soft:#FDECEA; --gold:#C8912F;
+    --soft:#FCF7F1;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;padding:0;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Apple SD Gothic Neo","Pretendard","Malgun Gothic",system-ui,sans-serif;
+    background:var(--bg);color:var(--ink);
+    font-size:16px;line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    padding-bottom:calc(94px + env(safe-area-inset-bottom));
+  }
+  .app{max-width:480px;margin:0 auto;padding:0 16px}
+
+  /* ---------- header ---------- */
+  .hero{padding:20px 0 6px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .flag{font-size:26px;line-height:1}
+  .hero h1{margin:0;font-size:20px;font-weight:800;letter-spacing:-.02em}
+  .hero p{margin:1px 0 0;font-size:12.5px;color:var(--ink2);font-weight:600}
+
+  .tabsbar{
+    position:sticky;top:0;z-index:20;
+    margin:0 -16px;padding:8px 16px 9px;
+    background:rgba(251,246,239,.93);
+    -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(237,226,214,.75);
+  }
+  .daytabs{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:2px 0 2px;scrollbar-width:none}
+  .daytabs::-webkit-scrollbar{display:none}
+  .daychip{
+    flex:none;position:relative;
+    border:1.5px solid var(--line);background:var(--card);color:var(--ink2);
+    border-radius:14px;padding:8px 13px;text-align:left;
+    font-family:inherit;font-size:13px;font-weight:800;line-height:1.25;
+    min-height:46px;cursor:pointer;
+  }
+  .daychip small{display:block;font-size:10.5px;font-weight:600;color:var(--ink2);opacity:.9;margin-top:2px}
+  .daychip.on{background:var(--accent);border-color:var(--accent);color:#fff}
+  .daychip.on small{color:rgba(255,255,255,.9)}
+  .daychip.locked{border-style:dashed;color:#A79A8E;background:transparent}
+  .daychip.locked small{color:#A79A8E}
+  .daychip.touched{box-shadow:inset 3px 0 0 0 var(--ok)}
+  .daychip.on.touched{box-shadow:none}
+
+  /* ---------- generic ---------- */
+  main{padding-top:14px}
+  .card{background:var(--card);border-radius:20px;padding:16px;margin-bottom:13px;box-shadow:0 2px 10px rgba(51,38,31,.05)}
+  .panel-head{background:var(--card);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 2px 10px rgba(51,38,31,.05)}
+  .kicker{font-size:11.5px;font-weight:800;color:var(--accent);letter-spacing:.04em}
+  .panel-head h2{margin:3px 0 4px;font-size:19px;font-weight:800;letter-spacing:-.02em;line-height:1.3}
+  .panel-head p{margin:0;font-size:13.5px;color:var(--ink2);font-weight:500}
+  .plan{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}
+  .plan span{font-size:11.5px;background:var(--accent-soft);color:var(--accent2);padding:4px 9px;border-radius:999px;font-weight:800}
+  .statrow{display:flex;gap:6px;flex-wrap:wrap;margin-top:9px}
+  .stat{font-size:11.5px;background:var(--soft);border:1px solid var(--line);color:var(--ink2);padding:4px 9px;border-radius:999px;font-weight:700}
+  .stat b{color:var(--ink);font-weight:800}
+  .stat.done{background:var(--ok-soft);border-color:#CFE9DA;color:#1E5F45}
+
+  .card h3{margin:0 0 5px;font-size:15.5px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;gap:7px}
+  .sec-num{flex:none;width:21px;height:21px;border-radius:50%;background:var(--accent);color:#fff;font-size:11.5px;font-weight:800;display:inline-flex;align-items:center;justify-content:center}
+  .lead{margin:0 0 12px;font-size:13px;color:var(--ink2);font-weight:500;line-height:1.6}
+
+  .tip{background:#FBF3E7;border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:9px 12px;font-size:12.5px;color:#6B543A;font-weight:600;margin-top:10px;line-height:1.55}
+  .tip b{font-weight:800;color:#5A4327}
+
+  /* ---------- conjugation tables ---------- */
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px}
+  .tbl-wrap + .tbl-wrap{margin-top:11px;border-top:1px dashed var(--line);padding-top:11px}
+  table.conj{width:100%;border-collapse:collapse;font-size:14px;table-layout:fixed}
+  table.conj th,table.conj td{padding:8px 4px;text-align:center;border-bottom:1px solid var(--line)}
+  table.conj thead th{font-size:15px;font-weight:800;background:var(--soft);padding:9px 3px;line-height:1.2}
+  table.conj thead th small{display:block;font-size:10.5px;font-weight:700;color:var(--ink2);margin-top:1px}
+  table.conj thead th:first-child{width:62px;background:transparent}
+  table.conj tbody th{font-size:11.5px;font-weight:700;color:var(--ink2);background:var(--soft);white-space:nowrap;padding-left:6px}
+  table.conj tbody tr:last-child th,table.conj tbody tr:last-child td{border-bottom:0}
+  table.conj td{font-weight:700;letter-spacing:-.01em}
+  table.conj.tight{font-size:13.5px}
+  table.conj.tight thead th{font-size:14px}
+  table.conj.tight th,table.conj.tight td{padding:7px 3px}
+  table.conj.tight thead th:first-child{width:54px}
+  table.conj.tight tbody th{font-size:11px;padding-left:5px}
+  table.conj tr.outside th,table.conj tr.outside td{background:#F7F3EC}
+  table.conj tr.outside td{color:#7E7166}
+  .e{color:var(--accent);font-weight:800}
+  .s{color:var(--teal);font-weight:800}
+  .axis{display:flex;gap:12px;flex-wrap:wrap;margin-top:9px;font-size:11.5px;color:var(--ink2);font-weight:700}
+  .axis i{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+  .axis .e-c{background:var(--accent)}
+  .axis .s-c{background:var(--teal)}
+
+  /* ---------- boot diagram ---------- */
+  .boot{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:2px 0 4px}
+  .boot .b{border-radius:11px;padding:7px 6px;text-align:center;line-height:1.3}
+  .boot .b small{display:block;font-size:10px;font-weight:800;opacity:.75;letter-spacing:.02em}
+  .boot .b span{font-size:14px;font-weight:800}
+  .boot .in{background:var(--teal-soft);color:#1F5F5C;border:1.5px solid var(--teal-line)}
+  .boot .out{background:#F6F2EC;color:#8C7C70;border:1.5px dashed #DCD0C2}
+
+  /* ---------- irregular verbs ---------- */
+  .irr{border:1px solid var(--line);border-radius:14px;padding:11px 12px;margin-bottom:10px;background:var(--soft)}
+  .irr:last-child{margin-bottom:0}
+  .irr-head{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+  .irr-head b{font-size:17px;font-weight:800;letter-spacing:-.01em}
+  .irr-head span{font-size:12.5px;color:var(--ink2);font-weight:700}
+  .irr-badge{font-size:10px;font-weight:800;background:var(--accent-soft);color:var(--accent2);padding:2px 7px;border-radius:999px}
+  .irr-forms{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+  .irr-f{background:#fff;border-radius:9px;padding:5px 9px;display:flex;justify-content:space-between;align-items:baseline;gap:6px;border:1px solid #F1E7DB}
+  .irr-f small{font-size:10px;font-weight:700;color:var(--ink2)}
+  .irr-f span{font-size:13.5px;font-weight:800}
+
+  /* ---------- vocabulary ---------- */
+  .vocab{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+  .vocab div{background:var(--soft);border-radius:9px;padding:6px 9px;display:flex;justify-content:space-between;gap:6px;align-items:baseline}
+  .vocab b{font-size:13px;font-weight:800}
+  .vocab span{font-size:11.5px;color:var(--ink2);font-weight:600;text-align:right}
+
+  /* ---------- upcoming ---------- */
+  .up-list{list-style:none;margin:0;padding:0}
+  .up-list li{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line)}
+  .up-list li:last-child{border-bottom:0}
+  .up-list .num{flex:none;width:24px;height:24px;border-radius:50%;background:#F1EAE0;color:#9A8A7C;font-size:11.5px;font-weight:800;display:flex;align-items:center;justify-content:center}
+  .up-list .txt{flex:1;min-width:0}
+  .up-list b{display:block;font-size:13.5px;font-weight:800}
+  .up-list small{display:block;font-size:11.5px;color:var(--ink2);font-weight:600}
+  .up-list .lock{flex:none;font-size:10.5px;font-weight:800;color:#A79A8E;background:#F4EEE6;padding:3px 8px;border-radius:999px}
+
+  /* ---------- flashcards ---------- */
+  .fc-top .lead{margin-bottom:8px}
+  .fc-bar{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+  .fc-bar .kicker{font-size:11.5px}
+  .fc-bar .cnt{font-size:11.5px;font-weight:800;color:var(--ink2)}
+  .progress{height:7px;border-radius:999px;background:#F0E8DE;overflow:hidden}
+  .progress i{display:block;height:100%;background:linear-gradient(90deg,#5FA98B,#2E7D5B);border-radius:999px;transition:width .35s ease}
+  .fc-scene{perspective:1400px;margin:2px 0 12px}
+  .fc{position:relative;height:272px;transform-style:preserve-3d;transition:transform .52s cubic-bezier(.4,.08,.2,1);cursor:pointer}
+  .fc.flipped{transform:rotateY(180deg)}
+  .fc-face{
+    position:absolute;inset:0;border-radius:22px;padding:18px 18px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    -webkit-backface-visibility:hidden;backface-visibility:hidden;
+    overflow:hidden;
+  }
+  .fc-front{background:#fff;border:1.5px solid var(--line);box-shadow:0 6px 20px rgba(51,38,31,.07)}
+  .fc-back{background:var(--teal-soft);border:1.5px solid var(--teal-line);transform:rotateY(180deg);box-shadow:0 6px 20px rgba(31,95,92,.1)}
+  .subjchip{font-size:11.5px;font-weight:800;color:var(--accent2);background:var(--accent-soft);padding:3px 11px;border-radius:999px;margin-bottom:10px}
+  .fc-verb{font-size:33px;font-weight:800;letter-spacing:-.02em;line-height:1.15;word-break:break-word}
+  .fc-meaning{font-size:14.5px;color:var(--ink2);font-weight:700;margin-top:6px}
+  .fc-tap{position:absolute;bottom:14px;left:0;right:0;font-size:11.5px;font-weight:700;color:#B4A596}
+  .fc-label{font-size:11px;font-weight:800;color:#2F7E7A;letter-spacing:.08em;margin-bottom:4px}
+  .fc-answer{font-size:31px;font-weight:800;color:#1F5F5C;letter-spacing:-.02em;line-height:1.15;word-break:break-word}
+  .fc-ex{font-size:13px;font-weight:700;color:#2A5E5B;margin-top:12px;line-height:1.5;padding:0 2px}
+  .fc-exko{font-size:11.5px;font-weight:600;color:#5D8D89;margin-top:4px}
+  .fc-note{font-size:10.5px;font-weight:800;color:#2F7E7A;background:rgba(255,255,255,.7);padding:3px 9px;border-radius:999px;margin-top:10px}
+  .covered{font-size:11.5px;color:var(--ink2);font-weight:700;text-align:center;margin:2px 0 0}
+  .btn-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .btn{
+    font-family:inherit;border:0;border-radius:15px;padding:15px 16px;font-size:15.5px;font-weight:800;
+    min-height:54px;width:100%;background:var(--accent);color:#fff;cursor:pointer;
+    box-shadow:0 5px 16px rgba(201,97,60,.24);touch-action:manipulation;
+  }
+  .btn:active{transform:translateY(1px)}
+  .btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
+  .btn.ok{background:var(--ok);box-shadow:0 5px 16px rgba(46,125,91,.22)}
+  .btn.soft{background:var(--soft);color:var(--ink2);border:1.5px solid var(--line);box-shadow:none}
+  .done-screen{text-align:center;padding:22px 16px}
+  .done-emoji{font-size:40px;line-height:1;margin-bottom:6px}
+  .done-screen h3{display:block;justify-content:center;font-size:17px;margin-bottom:6px}
+  .done-screen p{font-size:13px;color:var(--ink2);font-weight:600;margin:0 0 14px}
+  .done-screen .btn{margin-top:8px}
+
+  /* ---------- quiz ---------- */
+  .q{background:#fff;border-radius:18px;padding:14px;margin-bottom:11px;border:1.5px solid transparent;box-shadow:0 2px 10px rgba(51,38,31,.05)}
+  .q.ok{border-color:#BCE3CC}
+  .q.bad{border-color:#F3C3BC}
+  .q-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:4px}
+  .qnum{font-size:11px;font-weight:800;color:var(--ink2);letter-spacing:.06em}
+  .qmark{font-size:13px;font-weight:800}
+  .qmark.ok{color:var(--ok)}
+  .qmark.bad{color:var(--bad)}
+  .stem{font-size:15px;font-weight:700;line-height:2.1;margin:4px 0 8px;letter-spacing:-.01em}
+  .blank{
+    font-family:inherit;font-size:16px;line-height:1.25;font-weight:800;color:var(--accent);
+    background:var(--soft);border:0;border-bottom:2px solid #D9CDBF;border-radius:8px 8px 2px 2px;
+    padding:6px 7px;text-align:center;min-height:38px;margin:0 2px;
+    vertical-align:middle;-webkit-appearance:none;appearance:none;
+  }
+  .blank:focus{outline:none;border-color:var(--accent);background:var(--accent-soft)}
+  .blank.ok{border-color:var(--ok);background:var(--ok-soft);color:var(--ok)}
+  .blank.bad{border-color:var(--bad);background:var(--bad-soft);color:var(--bad)}
+  .qacts{display:flex;gap:7px;flex-wrap:wrap}
+  .mini{
+    font-family:inherit;font-size:12px;font-weight:800;color:var(--ink2);
+    background:#fff;border:1px solid var(--line);border-radius:999px;padding:7px 12px;min-height:36px;cursor:pointer;
+  }
+  .mini.on{background:var(--teal-soft);border-color:var(--teal-line);color:#21605D}
+  .hint{background:#FDF6E3;border-radius:10px;padding:9px 11px;font-size:12.5px;font-weight:600;color:#7A5E20;margin-top:9px}
+  .opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+  .opt{
+    font-family:inherit;font-size:13.5px;font-weight:800;color:var(--ink);
+    background:var(--soft);border:1.5px solid var(--line);border-radius:11px;padding:8px 13px;min-height:42px;cursor:pointer;
+    touch-action:manipulation;
+  }
+  .opt.sel{background:var(--accent);border-color:var(--accent);color:#fff}
+  .res{border-radius:12px;padding:9px 12px;font-size:12.5px;font-weight:600;margin-top:9px;line-height:1.55}
+  .res.ok{background:var(--ok-soft);color:#1E5F45}
+  .res.bad{background:var(--bad-soft);color:#942F22}
+  .res b{font-weight:800}
+  .res .full{margin-top:3px;color:inherit;opacity:.95}
+  .res .expl{margin-top:3px;opacity:.85}
+  .score{
+    background:linear-gradient(140deg,#C9613C,#A64B2C);color:#fff;border-radius:20px;
+    padding:18px 16px;text-align:center;margin-bottom:13px;box-shadow:0 6px 20px rgba(201,97,60,.22);
+  }
+  .score .big{font-size:36px;font-weight:900;letter-spacing:-.03em;line-height:1.1}
+  .score .big small{font-size:16px;font-weight:800;opacity:.85}
+  .score .msg{font-size:13px;font-weight:700;opacity:.95;margin-top:2px}
+  .score .sub{font-size:11.5px;font-weight:600;opacity:.8;margin-top:4px}
+  .quizfoot{margin-top:14px}
+
+  .foot{text-align:center;font-size:11px;color:#B0A294;font-weight:600;padding:6px 0 10px;line-height:1.6}
+
+  /* ---------- bottom mode nav ---------- */
+  .modenav{
+    position:fixed;left:0;right:0;bottom:0;z-index:30;
+    padding:8px 12px calc(9px + env(safe-area-inset-bottom));
+    background:rgba(251,246,239,.92);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    border-top:1px solid rgba(237,226,214,.85);
+  }
+  .modenav-inner{
+    max-width:456px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:4px;
+    background:#fff;border-radius:17px;padding:5px;box-shadow:0 3px 14px rgba(51,38,31,.08);
+  }
+  .mode-btn{
+    font-family:inherit;border:0;background:transparent;border-radius:13px;
+    padding:7px 2px;display:flex;flex-direction:column;align-items:center;gap:1px;
+    font-size:11.5px;font-weight:800;color:var(--ink2);cursor:pointer;min-height:50px;justify-content:center;
+    touch-action:manipulation;
+  }
+  .mode-btn .ic{font-size:15px;line-height:1.1}
+  .mode-btn.on{background:var(--accent);color:#fff}
+  .mode-btn.on .ic{color:#fff}
+
+  .toast{
+    position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom));
+    transform:translate(-50%,10px);opacity:0;pointer-events:none;
+    background:rgba(51,38,31,.93);color:#fff;font-size:12.5px;font-weight:700;
+    padding:10px 16px;border-radius:999px;z-index:60;max-width:86vw;text-align:center;
+    transition:opacity .22s ease,transform .22s ease;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0)}
+
+  @media (max-width:360px){
+    .fc-verb{font-size:29px}
+    .fc-answer{font-size:27px}
+    .stem{font-size:14px}
+    .vocab{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<noscript><div style="background:#FDECEA;color:#942F22;padding:12px 16px;font-size:13px;font-weight:700;text-align:center">자바스크립트가 꺼져 있어요. Safari에서 이 파일을 열어 주세요.</div></noscript>
+<div class="app">
+  <header class="hero">
+    <div class="brand">
+      <span class="flag" aria-hidden="true">🇪🇸</span>
+      <div>
+        <h1>스페인어 동사변형</h1>
+        <p>B1에서 다시, 하루 20분 기초부터</p>
+      </div>
+    </div>
+  </header>
+
+  <div class="tabsbar">
+    <div class="daytabs" id="dayTabs" role="tablist" aria-label="일차 선택"></div>
+  </div>
+
+  <main id="main"></main>
+
+  <footer class="foot">진행 상황은 이 기기에만 저장돼요 · 인터넷 없이도 열려요</footer>
+</div>
+
+<nav class="modenav" aria-label="학습 모드">
+  <div class="modenav-inner" id="modeTabs"></div>
+</nav>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ============ 데이터 ============ */
+  var SUBJ = ["yo", "tú", "él / ella", "nosotros", "vosotros", "ellos"];
+  var SHORT = ["yo", "tú", "él/ella", "nosotros", "vosotros", "ellos"];
+
+  var DATA = {
+    days: {
+      d1: {
+        label: "1일차",
+        title: "현재 규칙 & 기초 불규칙",
+        summary: "규칙동사 3패턴(-ar/-er/-ir)과 ser·estar·ir·tener를 한 번에 잡아요.",
+        cards: [
+          { v: "hablar", m: "말하다", s: "yo", a: "hablo", ex: "Hablo español un poco.", ko: "나는 스페인어를 조금 말해요.", n: "-ar 규칙 · yo → -o" },
+          { v: "comer", m: "먹다", s: "tú", a: "comes", ex: "¿Comes carne?", ko: "너 고기 먹어?", n: "-er 규칙 · tú → -es" },
+          { v: "vivir", m: "살다", s: "nosotros", a: "vivimos", ex: "Vivimos en Seúl.", ko: "우리는 서울에 살아요.", n: "-ir 규칙 · nosotros → -imos" },
+          { v: "estudiar", m: "공부하다", s: "ellos", a: "estudian", ex: "Ellos estudian español juntos.", ko: "그들은 함께 스페인어를 공부해요.", n: "-ar 규칙 · ellos → -an" },
+          { v: "abrir", m: "열다", s: "ella", a: "abre", ex: "La tienda abre a las nueve.", ko: "가게는 9시에 문을 열어요.", n: "-ir 규칙 · 3인칭 단수 → -e" },
+          { v: "ser", m: "~이다 (성질·직업)", s: "yo", a: "soy", ex: "Soy estudiante.", ko: "나는 학생이에요.", n: "완전 불규칙" },
+          { v: "ser", m: "~이다 (성질·직업)", s: "nosotros", a: "somos", ex: "Somos amigos.", ko: "우리는 친구예요.", n: "완전 불규칙" },
+          { v: "estar", m: "있다 · ~한 상태다", s: "yo", a: "estoy", ex: "Hoy estoy cansado.", ko: "오늘 나는 피곤해요.", n: "yo만 estoy" },
+          { v: "estar", m: "있다 · ~한 상태다", s: "tú", a: "estás", ex: "¿Cómo estás?", ko: "어떻게 지내?", n: "나머지는 -ar 규칙 + 강세" },
+          { v: "ir", m: "가다", s: "nosotros", a: "vamos", ex: "Vamos al cine.", ko: "우리 영화관에 가요.", n: "ir 불규칙" },
+          { v: "tener", m: "가지다", s: "ella", a: "tiene", ex: "Ella tiene dos hermanos.", ko: "그녀는 남매가 둘 있어요.", n: "tener 불규칙 · e→ie" },
+          { v: "tener que", m: "~해야 한다", s: "yo", a: "tengo que", ex: "Tengo que repasar los verbos.", ko: "나는 동사를 복습해야 해요.", n: "tener + que + 동사원형" }
+        ],
+        quiz: [
+          {
+            text: "Yo (hablar) {} español un poco.",
+            answers: [["hablo"]],
+            options: [["hablas", "hablo", "habla", "hablamos"]],
+            hint: "hablar는 -ar 규칙 동사이고 주어는 yo예요.",
+            expl: "hablar(-ar) + yo → hablo (-o)"
+          },
+          {
+            text: "¿Tú (comer) {} carne?",
+            answers: [["comes"]],
+            options: [["como", "comes", "come", "comemos"]],
+            hint: "-er 동사의 tú 어미는 -es예요.",
+            expl: "comer(-er) + tú → comes (-es)"
+          },
+          {
+            text: "Mis padres (vivir) {} en Seúl.",
+            answers: [["viven"]],
+            options: [["vivo", "vives", "vive", "viven"]],
+            hint: "Mis padres는 '그들(ellos)'이에요.",
+            expl: "vivir(-ir) + ellos → viven (-en)"
+          },
+          {
+            text: "Nosotros (estudiar) {} juntos hoy.",
+            answers: [["estudiamos"]],
+            options: [["estudiamos", "estudiáis", "estudian", "estudia"]],
+            hint: "-ar 동사의 nosotros 어미를 떠올려 보세요.",
+            expl: "estudiar(-ar) + nosotros → estudiamos (-amos)"
+          },
+          {
+            text: "Hoy (estar, yo) {} cansado, pero normalmente (ser, yo) {} muy activo.",
+            answers: [["estoy"], ["soy"]],
+            options: [["estoy", "soy", "está", "es"], ["soy", "estoy", "es", "está"]],
+            hint: "지금의 일시적 상태는 estar, 원래 성격·본질은 ser예요.",
+            expl: "일시적 상태 → estoy / 성격·본질 → soy"
+          },
+          {
+            text: "¿Cuándo (ir) {} vosotros al cine?",
+            answers: [["vais"]],
+            options: [["voy", "vas", "va", "vais", "vamos"]],
+            hint: "ir는 완전 불규칙이에요. vosotros 형태를 떠올려 보세요.",
+            expl: "ir 불규칙: voy / vas / va / vamos / vais / van"
+          },
+          {
+            text: "Ella (tener) {} que repasar los verbos.",
+            answers: [["tiene"]],
+            options: [["tengo", "tienes", "tiene", "tenemos"]],
+            hint: "tener는 불규칙이고, tener que + 동사원형은 '~해야 한다'예요.",
+            expl: "tener 불규칙: ella → tiene / tener que + 원형 = ~해야 한다"
+          },
+          {
+            text: "Ellos (abrir) {} la tienda a las nueve.",
+            answers: [["abren"]],
+            options: [["abro", "abres", "abre", "abren"]],
+            hint: "abrir는 -ir 규칙 동사, 주어는 ellos예요.",
+            expl: "abrir(-ir) + ellos → abren (-en)"
+          }
+        ]
+      },
+      d2: {
+        label: "2일차",
+        title: "어간변화 (부츠 동사)",
+        summary: "e→ie, o→ue, e→i · nosotros와 vosotros만 원래 모음 그대로예요.",
+        cards: [
+          { v: "querer", m: "원하다", s: "yo", a: "quiero", ex: "Quiero practicar todos los días.", ko: "나는 매일 연습하고 싶어요.", n: "e→ie · 부츠 안" },
+          { v: "pensar", m: "생각하다", s: "tú", a: "piensas", ex: "¿Qué piensas de esto?", ko: "이것에 대해 어떻게 생각해?", n: "e→ie · 부츠 안" },
+          { v: "empezar", m: "시작하다", s: "nosotros", a: "empezamos", ex: "Empezamos la clase a las cuatro.", ko: "우리는 4시에 수업을 시작해요.", n: "부츠 밖 → e 유지" },
+          { v: "entender", m: "이해하다", s: "ellos", a: "entienden", ex: "Ellos no entienden la pregunta.", ko: "그들은 질문을 이해하지 못해요.", n: "e→ie · 부츠 안" },
+          { v: "poder", m: "~할 수 있다", s: "yo", a: "puedo", ex: "Puedo ayudarte.", ko: "내가 도와줄 수 있어요.", n: "o→ue · 부츠 안" },
+          { v: "volver", m: "돌아오다", s: "vosotros", a: "volvéis", ex: "¿A qué hora volvéis a casa?", ko: "몇 시에 집에 돌아와요?", n: "부츠 밖 → o 유지" },
+          { v: "dormir", m: "자다", s: "ella", a: "duerme", ex: "Ella duerme ocho horas.", ko: "그녀는 8시간 자요.", n: "o→ue · 부츠 안" },
+          { v: "jugar", m: "놀다 · 경기하다", s: "nosotros", a: "jugamos", ex: "Jugamos al fútbol los sábados.", ko: "우리는 토요일마다 축구를 해요.", n: "부츠 밖 → u 유지" },
+          { v: "pedir", m: "주문하다 · 부탁하다", s: "ellos", a: "piden", ex: "Piden paella en el restaurante.", ko: "그들은 식당에서 파에야를 주문해요.", n: "e→i · 부츠 안" },
+          { v: "repetir", m: "반복하다", s: "tú", a: "repite", ex: "Repite después de mí.", ko: "나를 따라 말해 보세요.", n: "e→i · 부츠 안" },
+          { v: "seguir", m: "계속하다 · 따라가다", s: "yo", a: "sigo", ex: "Sigo estudiando cada día.", ko: "나는 매일 계속 공부해요.", n: "e→i · yo는 gu→g" }
+        ],
+        quiz: [
+          {
+            text: "Yo (querer) {} practicar español todos los días.",
+            answers: [["quiero"]],
+            options: [["quiero", "quero", "quiere", "queremos"]],
+            hint: "querer는 e→ie, 주어 yo는 부츠 안이에요.",
+            expl: "querer: e→ie → yo → quiero"
+          },
+          {
+            text: "¿(Poder, tú) {} ayudarme con este ejercicio?",
+            answers: [["puedes"]],
+            options: [["puedo", "puedes", "puede", "podemos"]],
+            hint: "poder는 o→ue, 주어는 tú예요.",
+            expl: "poder: o→ue → tú → puedes"
+          },
+          {
+            text: "Nosotros (empezar) {} la clase a las cuatro.",
+            answers: [["empezamos"]],
+            options: [["empiezo", "empiezas", "empezamos", "empezáis"]],
+            hint: "nosotros는 부츠 밖! 어간이 바뀌지 않아요.",
+            expl: "nosotros는 부츠 밖 → 어간 유지 → empezamos"
+          },
+          {
+            text: "Ella (dormir) {} ocho horas cada noche.",
+            answers: [["duerme"]],
+            options: [["duermo", "duermes", "duerme", "dormimos"]],
+            hint: "dormir는 o→ue, 주어는 그녀(3인칭 단수)예요.",
+            expl: "dormir: o→ue → ella → duerme"
+          },
+          {
+            text: "En el restaurante, nosotros siempre (pedir) {} paella.",
+            answers: [["pedimos"]],
+            options: [["pido", "pides", "pedimos", "piden"]],
+            hint: "nosotros는 부츠 밖이라 e→i가 적용되지 않아요.",
+            expl: "nosotros는 부츠 밖 → pedimos"
+          },
+          {
+            text: "¿A qué hora (volver) {} vosotros a casa?",
+            answers: [["volvéis"]],
+            options: [["vuelvo", "vuelves", "volvéis", "vuelven"]],
+            hint: "vosotros도 부츠 밖! o가 그대로 남아요.",
+            expl: "vosotros는 부츠 밖 → o 유지 → volvéis"
+          },
+          {
+            text: "Ellos no (entender) {} bien la pregunta.",
+            answers: [["entienden"]],
+            options: [["entiendo", "entiendes", "entiende", "entienden"]],
+            hint: "entender는 e→ie, 주어는 ellos예요.",
+            expl: "entender: e→ie → ellos → entienden"
+          },
+          {
+            text: "Yo (seguir) {} estudiando los verbos poco a poco.",
+            answers: [["sigo"]],
+            options: [["sigo", "siguo", "sigue", "seguimos"]],
+            hint: "seguir는 e→i이고, yo에서는 gu→g로 발음만 유지해요.",
+            expl: "seguir: e→i → yo → sigo (gu→g)"
+          }
+        ]
+      }
+    },
+    upcoming: [
+      { n: 3, t: "현재진행형 · 과거분사", ex: "estoy hablando · hablado" },
+      { n: 4, t: "현재완료", ex: "he hablado" },
+      { n: 5, t: "점과거", ex: "hablé" },
+      { n: 6, t: "선과거", ex: "había hablado" },
+      { n: 7, t: "미래 · 조건형", ex: "hablaré · hablaría" },
+      { n: 8, t: "접속법 현재", ex: "hable" }
+    ]
+  };
+
+  /* 1일차 규칙변형표 */
+  var T_REG = {
+    cols: [
+      { h: "hablar", s: "말하다" },
+      { h: "comer", s: "먹다" },
+      { h: "vivir", s: "살다" }
+    ],
+    rows: [
+      ["habl^o^", "com^o^", "viv^o^"],
+      ["habl^as^", "com^es^", "viv^es^"],
+      ["habl^a^", "com^e^", "viv^e^"],
+      ["habl^amos^", "com^emos^", "viv^imos^"],
+      ["habl^áis^", "com^éis^", "viv^ís^"],
+      ["habl^an^", "com^en^", "viv^en^"]
+    ]
+  };
+
+  /* 2일차 부츠 동사 표 */
+  var T_IE1 = {
+    cols: [
+      { h: "querer", s: "원하다" },
+      { h: "pensar", s: "생각하다" }
+    ],
+    rows: [
+      ["qu~ie~ro", "p~ie~nso"],
+      ["qu~ie~res", "p~ie~nsas"],
+      ["qu~ie~re", "p~ie~nsa"],
+      ["queremos", "pensamos"],
+      ["queréis", "pensáis"],
+      ["qu~ie~ren", "p~ie~nsan"]
+    ]
+  };
+
+  var T_IE2 = {
+    cols: [
+      { h: "empezar", s: "시작하다" },
+      { h: "entender", s: "이해하다" }
+    ],
+    rows: [
+      ["emp~ie~zo", "ent~ie~ndo"],
+      ["emp~ie~zas", "ent~ie~ndes"],
+      ["emp~ie~za", "ent~ie~nde"],
+      ["empezamos", "entendemos"],
+      ["empezáis", "entendéis"],
+      ["emp~ie~zan", "ent~ie~nden"]
+    ]
+  };
+
+  var T_UE1 = {
+    cols: [
+      { h: "poder", s: "~할 수 있다" },
+      { h: "volver", s: "돌아오다" }
+    ],
+    rows: [
+      ["p~ue~do", "v~ue~lvo"],
+      ["p~ue~des", "v~ue~lves"],
+      ["p~ue~de", "v~ue~lve"],
+      ["podemos", "volvemos"],
+      ["podéis", "volvéis"],
+      ["p~ue~den", "v~ue~lven"]
+    ]
+  };
+
+  var T_UE2 = {
+    cols: [
+      { h: "dormir", s: "자다" },
+      { h: "jugar", s: "놀다" }
+    ],
+    rows: [
+      ["d~ue~rmo", "j~ue~go"],
+      ["d~ue~rmes", "j~ue~gas"],
+      ["d~ue~rme", "j~ue~ga"],
+      ["dormimos", "jugamos"],
+      ["dormís", "jugáis"],
+      ["d~ue~rmen", "j~ue~gan"]
+    ]
+  };
+
+  var T_EI = {
+    cols: [
+      { h: "pedir", s: "주문하다" },
+      { h: "repetir", s: "반복하다" },
+      { h: "seguir", s: "계속하다" }
+    ],
+    rows: [
+      ["p~i~do", "rep~i~to", "s~i~go"],
+      ["p~i~des", "rep~i~tes", "s~i~gues"],
+      ["p~i~de", "rep~i~te", "s~i~gue"],
+      ["pedimos", "repetimos", "seguimos"],
+      ["pedís", "repetís", "seguís"],
+      ["p~i~den", "rep~i~ten", "s~i~guen"]
+    ]
+  };
+
+  var IRREG = [
+    {
+      verb: "ser", meaning: "~이다 (성질·정체·직업)", badge: "완전 불규칙",
+      forms: ["soy", "eres", "es", "somos", "sois", "son"],
+      tip: "여섯 개가 모두 불규칙이라 규칙으로 유추할 수 없어요. 문장으로 통째로 외우세요: «Soy estudiante.» «¿Eres español?»"
+    },
+    {
+      verb: "estar", meaning: "~에 있다 · ~한 상태다", badge: "yo만 특이",
+      forms: ["est~oy~", "estás", "está", "estamos", "estáis", "están"],
+      tip: "yo만 estoy로 모양이 다르고, 나머지는 -ar 규칙 그대로예요(강세만 붙어요). 상태·위치는 estar, 성격·본질은 ser!"
+    },
+    {
+      verb: "ir", meaning: "가다", badge: "완전 불규칙",
+      forms: ["voy", "vas", "va", "vamos", "vais", "van"],
+      tip: "voy·vas·va는 모양이 완전히 달라요. vamos만 -ar 규칙처럼 보이죠. «Vamos al cine.»처럼 통째로 익히세요."
+    },
+    {
+      verb: "tener", meaning: "가지다 · tener que + 원형 = ~해야 한다", badge: "불규칙 + 부츠",
+      forms: ["tengo", "t~ie~nes", "t~ie~ne", "tenemos", "tenéis", "t~ie~nen"],
+      tip: "yo만 tengo(go형)이고, 나머지는 2일차에 배울 e→ie 부츠 동사예요. tener que + 동사원형은 '~해야 한다'!"
+    }
+  ];
+
+  var VOCAB1 = [
+    ["hablar", "말하다"], ["comer", "먹다"], ["vivir", "살다"],
+    ["estudiar", "공부하다"], ["abrir", "열다"], ["tener que + 원형", "~해야 한다"]
+  ];
+  var VOCAB2 = [
+    ["querer", "원하다"], ["pensar", "생각하다"], ["empezar", "시작하다"],
+    ["entender", "이해하다"], ["poder", "~할 수 있다"], ["volver", "돌아오다"],
+    ["dormir", "자다"], ["jugar", "놀다·경기하다"], ["pedir", "주문하다·부탁하다"],
+    ["repetir", "반복하다"], ["seguir", "계속하다·따라가다"]
+  ];
+
+  var BOOT = [
+    { s: "yo", f: "p~ue~do", inb: true },
+    { s: "nosotros", f: "podemos", inb: false },
+    { s: "tú", f: "p~ue~des", inb: true },
+    { s: "vosotros", f: "podéis", inb: false },
+    { s: "él / ella", f: "p~ue~de", inb: true },
+    { s: "ellos / ellas", f: "p~ue~den", inb: true }
+  ];
+
+  /* ============ 상태 저장 ============ */
+  var K_STATE = "spaVerb.v1.state";
+  var K_PROG = "spaVerb.v1.prog";
+
+  var state = { day: "d1", mode: "concept" };
+  var prog = {};
+  var quiz = null;
+  var cards = null;
+
+  function safeGet(k, def) {
+    try {
+      var raw = window.localStorage.getItem(k);
+      if (!raw) return def;
+      return JSON.parse(raw);
+    } catch (e) {
+      return def;
+    }
+  }
+  function safeSet(k, v) {
+    try {
+      window.localStorage.setItem(k, JSON.stringify(v));
+    } catch (e) { /* 저장 불가 환경이면 조용히 넘어감 */ }
+  }
+
+  function loadAll() {
+    var s = safeGet(K_STATE, null);
+    if (s && s.day && DATA.days[s.day]) state.day = s.day;
+    if (s && s.mode && ["concept", "cards", "quiz"].indexOf(s.mode) >= 0) state.mode = s.mode;
+    var p = safeGet(K_PROG, null);
+    prog = (p && typeof p === "object") ? p : {};
+  }
+  function saveState() { safeSet(K_STATE, { day: state.day, mode: state.mode }); }
+  function saveProg() { safeSet(K_PROG, prog); }
+
+  function progOf(day) {
+    if (!prog[day]) prog[day] = { best: 0, last: null, known: [] };
+    if (!Array.isArray(prog[day].known)) prog[day].known = [];
+    if (typeof prog[day].best !== "number") prog[day].best = 0;
+    return prog[day];
+  }
+
+  /* ============ 유틸 ============ */
+  function esc(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  function escAttr(s) {
+    return esc(s).replace(/"/g, "&quot;");
+  }
+  function mk(s) {
+    return String(s)
+      .replace(/~([^~]*)~/g, '<span class="s">$1</span>')
+      .replace(/\^([^\^]*)\^/g, '<span class="e">$1</span>');
+  }
+  function norm(s) {
+    var v = String(s == null ? "" : s).toLowerCase().trim();
+    v = v.replace(/[.,!?;:¡¿"'\u2018\u2019\u201C\u201D]/g, "");
+    v = v.replace(/\s+/g, " ");
+    try {
+      v = v.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    } catch (e) { /* 구형 브라우저는 그대로 비교 */ }
+    return v;
+  }
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
+  }
+
+  var toastTimer = null;
+  function toast(msg) {
+    var el = document.getElementById("toast");
+    el.textContent = msg;
+    el.className = "toast show";
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { el.className = "toast"; }, 2100);
+  }
+
+  /* ============ 헤더 / 탭 ============ */
+  function renderDayTabs() {
+    var el = document.getElementById("dayTabs");
+    var h = "";
+    var keys = Object.keys(DATA.days);
+    for (var i = 0; i < keys.length; i++) {
+      var k = keys[i];
+      var d = DATA.days[k];
+      var p = prog[k];
+      var touched = p && (p.best > 0 || (p.known && p.known.length > 0)) ? " touched" : "";
+      h += '<button type="button" class="daychip' + (state.day === k ? " on" : "") + touched + '" data-day="' + k + '"' +
+        ' role="tab" aria-selected="' + (state.day === k ? "true" : "false") + '">' +
+        esc(d.label) + "<small>" + esc(d.title) + "</small></button>";
+    }
+    for (var u = 0; u < DATA.upcoming.length; u++) {
+      var up = DATA.upcoming[u];
+      h += '<button type="button" class="daychip locked" data-locked="' + up.n + '">' +
+        "\uD83D\uDD12 " + up.n + "일차<small>" + esc(up.t) + "</small></button>";
+    }
+    el.innerHTML = h;
+  }
+
+  function renderModeTabs() {
+    var el = document.getElementById("modeTabs");
+    var modes = [
+      { k: "concept", ic: "①", label: "개념 정리" },
+      { k: "cards", ic: "②", label: "플래시카드" },
+      { k: "quiz", ic: "③", label: "실전 퀴즈" }
+    ];
+    var h = "";
+    for (var i = 0; i < modes.length; i++) {
+      var m = modes[i];
+      h += '<button type="button" class="mode-btn' + (state.mode === m.k ? " on" : "") + '" data-mode="' + m.k + '">' +
+        '<span class="ic">' + m.ic + "</span><span>" + m.label + "</span></button>";
+    }
+    el.innerHTML = h;
+  }
+
+  /* ============ 패널 머리 ============ */
+  function panelHeadHTML() {
+    var d = DATA.days[state.day];
+    var p = progOf(state.day);
+    var total = d.cards.length;
+    var touched = p.best >= d.quiz.length;
+    var h = '<section class="panel-head">';
+    h += '<div class="kicker">' + esc(d.label) + " · 오늘의 20분</div>";
+    h += "<h2>" + esc(d.title) + "</h2>";
+    h += "<p>" + esc(d.summary) + "</p>";
+    h += '<div class="plan"><span>개념 7분</span><span>카드 5분</span><span>퀴즈 8분</span></div>';
+    h += '<div class="statrow">';
+    h += '<span class="stat">퀴즈 최고 <b>' + p.best + "/" + d.quiz.length + "</b></span>";
+    h += '<span class="stat">외운 카드 <b>' + p.known.length + "/" + total + "</b></span>";
+    if (touched) h += '<span class="stat done">오늘 목표 달성 ✓</span>';
+    h += "</div></section>";
+    return h;
+  }
+
+  /* ============ 개념 ============ */
+  function aheadHTML(num, title, lead, body) {
+    var h = "<section class=\"card\">";
+    h += "<h3><span class=\"sec-num\">" + num + "</span>" + esc(title) + "</h3>";
+    if (lead) h += '<p class="lead">' + esc(lead) + "</p>";
+    h += body;
+    h += "</section>";
+    return h;
+  }
+
+  function conjTableHTML(t, tight, markOutside) {
+    var h = '<div class="tbl-wrap"><table class="conj' + (tight ? " tight" : "") + '"><thead><tr><th></th>';
+    for (var c = 0; c < t.cols.length; c++) {
+      h += "<th>" + mk(t.cols[c].h) + "<small>" + esc(t.cols[c].s) + "</small></th>";
+    }
+    h += "</tr></thead><tbody>";
+    for (var r = 0; r < t.rows.length; r++) {
+      var outside = (r === 3 || r === 4);
+      h += "<tr" + (markOutside && outside ? ' class="outside"' : "") + ">";
+      h += "<th>" + esc(SHORT[r]) + "</th>";
+      for (var c2 = 0; c2 < t.rows[r].length; c2++) {
+        h += "<td>" + mk(t.rows[r][c2]) + "</td>";
+      }
+      h += "</tr>";
+    }
+    h += "</tbody></table></div>";
+    return h;
+  }
+
+  function axisHTML(stemColor) {
+    var h = '<div class="axis">';
+    if (stemColor) {
+      h += '<span><i class="s-c"></i>어간 변화</span>';
+    } else {
+      h += '<span><i class="e-c"></i>어미 변화</span>';
+    }
+    return h + "</div>";
+  }
+
+  function bootHTML() {
+    var h = '<div class="boot">';
+    for (var i = 0; i < BOOT.length; i++) {
+      var b = BOOT[i];
+      h += '<div class="b ' + (b.inb ? "in" : "out") + '"><small>' + esc(b.s) + "</small><span>" + mk(b.f) + "</span></div>";
+    }
+    return h + "</div>";
+  }
+
+  function irregularsHTML() {
+    var h = "";
+    for (var i = 0; i < IRREG.length; i++) {
+      var v = IRREG[i];
+      h += '<div class="irr">';
+      h += '<div class="irr-head"><b>' + esc(v.verb) + "</b><span>" + esc(v.meaning) + "</span>";
+      h += '<span class="irr-badge">' + esc(v.badge) + "</span></div>";
+      h += '<div class="irr-forms">';
+      for (var f = 0; f < v.forms.length; f++) {
+        h += '<div class="irr-f"><small>' + esc(SHORT[f]) + "</small><span>" + mk(v.forms[f]) + "</span></div>";
+      }
+      h += "</div>";
+      h += '<div class="tip">' + esc(v.tip) + "</div>";
+      h += "</div>";
+    }
+    return h;
+  }
+
+  function vocabHTML(list) {
+    var h = '<div class="vocab">';
+    for (var i = 0; i < list.length; i++) {
+      h += "<div><b>" + mk(list[i][0]) + "</b><span>" + esc(list[i][1]) + "</span></div>";
+    }
+    return h + "</div>";
+  }
+
+  function conceptsHTML() {
+    var h = "";
+    if (state.day === "d1") {
+      h += aheadHTML("1", "규칙동사 3패턴", "동사 원형에서 끝 두 글자(-ar / -er / -ir)를 떼고, 주어에 맞는 어미를 붙이면 끝이에요.",
+        conjTableHTML(T_REG, false, false) +
+        '<div class="axis"><span><i class="e-c"></i>어미</span><span>규칙 3패턴은 어미만 바뀌어요</span></div>' +
+        '<div class="tip"><b>기억 팁</b> · yo는 셋 다 <b>-o</b>! · -er과 -ir은 nosotros(<b>-emos / -imos</b>), vosotros(<b>-éis / -ís</b>)만 다르고 나머지는 똑같아요. · tú는 항상 <b>-s</b>, ellos는 항상 <b>-n</b>.</div>');
+
+      h += aheadHTML("2", "기초 불규칙 4총사", "B1 올라가도 매일 만나는 네 동사는 규칙으로 유추하지 말고 통째로 외우는 게 빨라요.",
+        irregularsHTML());
+
+      h += aheadHTML("3", "핵심 어휘", "오늘 퀴즈에 그대로 나오는 동사들이에요. 뜻을 먼저 확실히 잡아 두세요.",
+        vocabHTML(VOCAB1));
+    } else {
+      h += aheadHTML("1", "부츠 동사의 핵심 규칙", "어간 모음이 바뀌어도 nosotros와 vosotros는 원래 모음 그대로예요. 표에 색을 칠하면 부츠 모양이 돼요.",
+        bootHTML() +
+        '<div class="axis"><span><i class="s-c"></i>부츠 안 4칸 = 어간 변화</span><span><i style="background:#DCD0C2"></i>부츠 밖 2칸 = 그대로</span></div>' +
+        '<div class="tip"><b>기억 팁</b> · nosotros / vosotros만 어간이 안 바뀌어요. <b>queremos · podéis</b>처럼 원래 모음이 남아요.</div>');
+
+      h += aheadHTML("2", "① e → ie", "e가 ie로 늘어나는 가장 흔한 패턴이에요. 강세는 바뀐 모음에 있어요.",
+        conjTableHTML(T_IE1, true, true) + conjTableHTML(T_IE2, true, true) +
+        '<div class="tip"><b>주의</b> · empezar는 yo에서 z가 c로 바뀌어요(<b>empiezo</b>). 발음이 [e]로 유지되게 하려는 변화예요.</div>');
+
+      h += aheadHTML("3", "② o → ue", "o가 ue로 늘어나는 패턴이에요. jugar만 u→ue라는 것도 같이 외우세요.",
+        conjTableHTML(T_UE1, true, true) + conjTableHTML(T_UE2, true, true) +
+        '<div class="tip"><b>주의</b> · jugar는 o가 아닌 <b>u→ue</b>예요(juego). dormir도 o→ue이지만 nosotros/vosotros는 dormimos / dormís!</div>');
+
+      h += aheadHTML("4", "③ e → i", "-ir 동사에만 있는 패턴이에요. -ar·-er 동사에는 없어요.",
+        conjTableHTML(T_EI, true, true) +
+        '<div class="tip"><b>주의</b> · seguir의 yo는 발음을 지키려고 gu→g가 되어 <b>sigo</b>예요. seguimos / seguís는 e 그대로!</div>');
+
+      h += aheadHTML("5", "핵심 어휘", "어간이 바뀌는 동사는 뜻과 함께 통째로 익히면 훨씬 오래 남아요.",
+        vocabHTML(VOCAB2));
+    }
+    return h;
+  }
+
+  function upcomingHTML() {
+    var h = '<section class="card"><h3>다가오는 커리큘럼</h3>';
+    h += '<p class="lead">오늘 배운 현재시제 위에 이 순서로 쌓여요. 매일 같은 시간, 20분씩.</p><ol class="up-list">';
+    for (var i = 0; i < DATA.upcoming.length; i++) {
+      var u = DATA.upcoming[i];
+      h += '<li><span class="num">' + u.n + "</span><div class=\"txt\"><b>" + esc(u.t) + "</b><small>" + esc(u.ex) + "</small></div>";
+      h += '<span class="lock">예정</span></li>';
+    }
+    h += "</ol></section>";
+    return h;
+  }
+
+  /* ============ 플래시카드 ============ */
+  function initCards(force) {
+    var d = DATA.days[state.day];
+    var p = progOf(state.day);
+    if (force || !cards || cards.day !== state.day) {
+      var known = {};
+      for (var i = 0; i < p.known.length; i++) known[p.known[i]] = true;
+      var queue = [];
+      for (var j = 0; j < d.cards.length; j++) {
+        var id = state.day + "c" + j;
+        if (!known[id]) queue.push(id);
+      }
+      cards = { day: state.day, known: known, queue: shuffle(queue), flipped: false };
+    }
+  }
+
+  function cardIndexFromId(id) {
+    return parseInt(String(id).replace(/^.*c/, ""), 10);
+  }
+
+  function cardsInnerHTML() {
+    var d = DATA.days[state.day];
+    var total = d.cards.length;
+    var knownCount = 0;
+    for (var i = 0; i < total; i++) {
+      if (cards.known[state.day + "c" + i]) knownCount++;
+    }
+    var pct = Math.round((knownCount / total) * 100);
+
+    var h = "";
+    h += '<section class="card fc-top">';
+    h += '<div class="fc-bar"><span class="kicker">' + (cards.queue.length ? "플래시카드 " + (total - knownCount) + "장 남음" : "플래시카드 완료") + "</span>";
+    h += '<span class="cnt">외운 카드 ' + knownCount + " / " + total + "</span></div>";
+    h += '<div class="progress"><i style="width:' + pct + '%"></i></div>';
+    h += "</section>";
+
+    if (!cards.queue.length) {
+      h += '<section class="card done-screen"><div class="done-emoji">🎉</div>';
+      h += "<h3>이 일차 카드를 다 봤어요!</h3>";
+      h += "<p>카드 " + total + "장을 모두 확인했어요 · 이제 퀴즈로 확인해 볼까요?</p>";
+      h += '<button type="button" class="btn" data-act="gotoquiz">퀴즈로 확인하기</button>';
+      h += '<button type="button" class="btn ghost" data-act="restart">전체 카드 한 번 더</button>';
+      h += "</section>";
+      return h;
+    }
+
+    var id = cards.queue[0];
+    var c = d.cards[cardIndexFromId(id)];
+    h += '<div class="fc-scene"><div class="fc' + (cards.flipped ? " flipped" : "") + '" id="fc" data-act="flip" role="button" tabindex="0" aria-label="카드를 눌러 정답 보기">';
+    h += '<div class="fc-face fc-front">';
+    h += '<span class="subjchip">' + esc(c.s) + "</span>";
+    h += '<div class="fc-verb">' + esc(c.v) + "</div>";
+    h += '<div class="fc-meaning">' + esc(c.m) + "</div>";
+    h += '<div class="fc-tap">탭해서 정답 보기 ↻</div>';
+    h += "</div>";
+    h += '<div class="fc-face fc-back">';
+    h += '<span class="fc-label">정답</span>';
+    h += '<div class="fc-answer">' + mk(c.a) + "</div>";
+    h += '<div class="fc-ex">«' + esc(c.ex) + "»</div>";
+    h += '<div class="fc-exko">' + esc(c.ko) + "</div>";
+    if (c.n) h += '<div class="fc-note">' + esc(c.n) + "</div>";
+    h += "</div></div></div>";
+
+    h += '<div class="btn-row">';
+    h += '<button type="button" class="btn ghost" data-act="review">다시 볼래요</button>';
+    h += '<button type="button" class="btn ok" data-act="known">외웠어요</button>';
+    h += "</div>";
+    h += '<p class="covered">카드를 누르면 정답이 보여요 · 남은 카드 ' + cards.queue.length + "장</p>";
+    return h;
+  }
+
+  function renderCardsStage() {
+    var host = document.getElementById("cardsHost");
+    if (!host) { render(); return; }
+    host.innerHTML = cardsInnerHTML();
+  }
+
+  function flipCard() {
+    var el = document.getElementById("fc");
+    if (!el) return;
+    cards.flipped = !cards.flipped;
+    if (cards.flipped) el.classList.add("flipped");
+    else el.classList.remove("flipped");
+  }
+
+  function markKnown() {
+    if (!cards.queue.length) return;
+    var id = cards.queue.shift();
+    cards.known[id] = true;
+    cards.flipped = false;
+    var p = progOf(state.day);
+    if (p.known.indexOf(id) < 0) {
+      p.known.push(id);
+      saveProg();
+    }
+    renderCardsStage();
+    renderDayTabs();
+    renderPanelHead();
+    if (!cards.queue.length) toast("카드 전부 완료! 퀴즈로 확인해 보세요");
+  }
+
+  function markReview() {
+    if (cards.queue.length < 2) {
+      cards.flipped = false;
+      renderCardsStage();
+      toast("이 카드만 남았어요. 외웠으면 '외웠어요'를 눌러 주세요");
+      return;
+    }
+    var id = cards.queue.shift();
+    cards.queue.push(id);
+    cards.flipped = false;
+    renderCardsStage();
+  }
+
+  /* ============ 퀴즈 ============ */
+  function initQuiz() {
+    var d = DATA.days[state.day];
+    if (!quiz || quiz.day !== state.day) {
+      var answers = [];
+      for (var i = 0; i < d.quiz.length; i++) {
+        var row = [];
+        for (var b = 0; b < d.quiz[i].answers.length; b++) row.push("");
+        answers.push(row);
+      }
+      quiz = { day: state.day, answers: answers, results: null, hints: {}, opts: {} };
+    }
+  }
+
+  function blankWidth(item, b) {
+    var maxLen = 4;
+    for (var i = 0; i < item.answers[b].length; i++) {
+      if (item.answers[b][i].length > maxLen) maxLen = item.answers[b][i].length;
+    }
+    var w = maxLen * 10 + 34;
+    if (w < 92) w = 92;
+    if (w > 190) w = 190;
+    return w;
+  }
+
+  function blankHTML(item, i, b) {
+    var val = quiz.answers[i][b] || "";
+    var cls = "";
+    if (quiz.results) cls = quiz.results[i].blanks[b] ? " ok" : " bad";
+    return '<input class="blank' + cls + '" type="text" inputmode="text" autocomplete="off" autocorrect="off" ' +
+      'autocapitalize="off" spellcheck="false" data-q="' + i + '" data-b="' + b + '" ' +
+      'value="' + escAttr(val) + '" style="width:' + blankWidth(item, b) + 'px" aria-label="' + (i + 1) + "번 문제 " + (b + 1) + '번 빈칸">';
+  }
+
+  function stemHTML(item, i) {
+    var parts = item.text.split("{}");
+    var h = "";
+    for (var b = 0; b < parts.length; b++) {
+      h += esc(parts[b]);
+      if (b < parts.length - 1) h += blankHTML(item, i, b);
+    }
+    return h;
+  }
+
+  function solutionHTML(item) {
+    var parts = item.text.split("{}");
+    var h = "";
+    for (var b = 0; b < parts.length; b++) {
+      h += esc(parts[b]);
+      if (b < parts.length - 1) h += "<b>" + esc(item.answers[b][0]) + "</b>";
+    }
+    return h;
+  }
+
+  function answerText(item) {
+    var out = [];
+    for (var b = 0; b < item.answers.length; b++) out.push("«" + item.answers[b][0] + "»");
+    return out.join(" / ");
+  }
+
+  function optsHTML(item, i) {
+    var h = "";
+    for (var b = 0; b < item.options.length; b++) {
+      if (!quiz.opts[i]) continue;
+      h += '<div class="opts">';
+      for (var o = 0; o < item.options[b].length; o++) {
+        var opt = item.options[b][o];
+        var sel = norm(quiz.answers[i][b]) === norm(opt) ? " sel" : "";
+        h += '<button type="button" class="opt' + sel + '" data-opt="' + i + "|" + b + "|" + escAttr(opt) + '">' + esc(opt) + "</button>";
+      }
+      h += "</div>";
+    }
+    return h;
+  }
+
+  function questionHTML(item, i) {
+    var res = quiz.results ? quiz.results[i] : null;
+    var cls = res ? (res.ok ? " ok" : " bad") : "";
+    var h = '<div class="q' + cls + '">';
+    h += '<div class="q-head"><span class="qnum">Q' + (i + 1) + "</span>";
+    if (res) h += '<span class="qmark ' + (res.ok ? "ok" : "bad") + '">' + (res.ok ? "✓ 정답" : "✗ 오답") + "</span>";
+    h += "</div>";
+    h += '<div class="stem">' + stemHTML(item, i) + "</div>";
+    h += '<div class="qacts">';
+    h += '<button type="button" class="mini' + (quiz.hints[i] ? " on" : "") + '" data-act="hint" data-i="' + i + '">💡 힌트</button>';
+    h += '<button type="button" class="mini' + (quiz.opts[i] ? " on" : "") + '" data-act="opts" data-i="' + i + '">' + (quiz.opts[i] ? "선택지 닫기" : "선택지 보기") + "</button>";
+    h += "</div>";
+    if (quiz.hints[i]) h += '<div class="hint">' + esc(item.hint) + "</div>";
+    h += optsHTML(item, i);
+    if (res) {
+      if (res.ok) {
+        h += '<div class="res ok"><b>✓ 맞았어요!</b><div class="expl">' + esc(item.expl) + "</div></div>";
+      } else {
+        h += '<div class="res bad"><b>✗ 정답은 ' + esc(answerText(item)) + "</b>";
+        h += '<div class="full">완성: ' + solutionHTML(item) + "</div>";
+        h += '<div class="expl">' + esc(item.expl) + "</div></div>";
+      }
+    }
+    h += "</div>";
+    return h;
+  }
+
+  function scoreHTML() {
+    var total = quiz.results.length;
+    var n = 0;
+    for (var i = 0; i < quiz.results.length; i++) if (quiz.results[i].ok) n++;
+    var msg = n === total ? "완벽해요! 오늘 분량은 여기까지 🎉"
+      : n >= total - 2 ? "아주 좋아요! 틀린 문제만 다시 보면 돼요 👏"
+      : n >= total / 2 ? "좋아요, 조금만 더 다듬으면 완성돼요"
+      : "괜찮아요. 개념 정리로 한 번 돌아가 볼까요?";
+    var best = progOf(state.day).best;
+    var h = '<section class="score">';
+    h += '<div class="big">' + n + "<small>/" + total + "</small></div>";
+    h += '<div class="msg">' + esc(msg) + "</div>";
+    h += '<div class="sub">최고 기록 ' + best + "/" + total + " · 점수는 이 기기에 저장돼요</div>";
+    h += "</section>";
+    return h;
+  }
+
+  function quizInnerHTML() {
+    var d = DATA.days[state.day];
+    var h = "";
+    if (quiz.results) h += scoreHTML();
+    else {
+      h += '<section class="card"><h3>실전 퀴즈 · 8문제</h3>';
+      h += '<p class="lead">빈칸에 답을 직접 입력해 보세요. 막히면 💡 힌트, 보기가 필요하면 보기 버튼을 누르면 돼요. 다 풀고 <b>채점하기</b>를 누르면 바로 정답과 해설이 나와요.</p>';
+      h += '<div class="tip"><b>채점 안내</b> · 띄어쓰기와 마침표는 무시하고, 악센트(á, é, í) 없이 입력해도 정답으로 처리해요. 한국어로 외우기보다 <b>소리 내어 읽으며</b> 입력해 보세요.</div>';
+      h += "</section>";
+    }
+    for (var i = 0; i < d.quiz.length; i++) h += questionHTML(d.quiz[i], i);
+    h += '<div class="quizfoot">';
+    if (quiz.results) h += '<button type="button" class="btn ghost" data-act="reset">다시 풀기</button>';
+    else h += '<button type="button" class="btn" data-act="grade">채점하기</button>';
+    h += "</div>";
+    return h;
+  }
+
+  function renderQuizStage() {
+    var host = document.getElementById("quizHost");
+    if (!host) { render(); return; }
+    host.innerHTML = quizInnerHTML();
+  }
+
+  function collectAnswers() {
+    var inputs = document.querySelectorAll(".blank");
+    for (var i = 0; i < inputs.length; i++) {
+      var q = parseInt(inputs[i].getAttribute("data-q"), 10);
+      var b = parseInt(inputs[i].getAttribute("data-b"), 10);
+      quiz.answers[q][b] = inputs[i].value;
+    }
+  }
+
+  function grade() {
+    collectAnswers();
+    var d = DATA.days[state.day];
+    var results = [];
+    for (var i = 0; i < d.quiz.length; i++) {
+      var item = d.quiz[i];
+      var blanks = [];
+      var allOk = true;
+      for (var b = 0; b < item.answers.length; b++) {
+        var val = norm(quiz.answers[i][b]);
+        var ok = false;
+        if (val !== "") {
+          for (var a = 0; a < item.answers[b].length; a++) {
+            if (norm(item.answers[b][a]) === val) { ok = true; break; }
+          }
+        }
+        blanks.push(ok);
+        if (!ok) allOk = false;
+      }
+      results.push({ ok: allOk, blanks: blanks });
+    }
+    quiz.results = results;
+
+    var score = 0;
+    for (var r = 0; r < results.length; r++) if (results[r].ok) score++;
+    var p = progOf(state.day);
+    p.last = score;
+    if (score > p.best) p.best = score;
+    saveProg();
+
+    renderQuizStage();
+    renderDayTabs();
+    renderPanelHead();
+    var sc = document.querySelector(".score");
+    if (sc && sc.scrollIntoView) {
+      window.scrollTo({ top: sc.getBoundingClientRect().top + window.pageYOffset - 70, behavior: "smooth" });
+    }
+  }
+
+  function resetQuiz() {
+    quiz.results = null;
+    var d = DATA.days[state.day];
+    var answers = [];
+    for (var i = 0; i < d.quiz.length; i++) {
+      var row = [];
+      for (var b = 0; b < d.quiz[i].answers.length; b++) row.push("");
+      answers.push(row);
+    }
+    quiz.answers = answers;
+    quiz.hints = {};
+    quiz.opts = {};
+    renderQuizStage();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  /* ============ 렌더 ============ */
+  function renderPanelHead() {
+    var host = document.getElementById("panelHead");
+    if (!host) return;
+    host.innerHTML = panelHeadHTML();
+  }
+
+  function render() {
+    var main = document.getElementById("main");
+    var h = '<div id="panelHead">' + panelHeadHTML() + "</div>";
+    if (state.mode === "concept") {
+      h += conceptsHTML();
+      h += upcomingHTML();
+    } else if (state.mode === "cards") {
+      initCards(false);
+      h += '<div id="cardsHost">' + cardsInnerHTML() + "</div>";
+    } else {
+      initQuiz();
+      h += '<div id="quizHost">' + quizInnerHTML() + "</div>";
+    }
+    main.innerHTML = h;
+    renderDayTabs();
+    renderModeTabs();
+    saveState();
+  }
+
+  /* ============ 이벤트 ============ */
+  document.addEventListener("click", function (ev) {
+    var t = ev.target;
+    var el = t && t.closest ? t.closest("[data-day],[data-locked],[data-mode],[data-act],[data-opt]") : null;
+    if (!el) return;
+
+    if (el.hasAttribute("data-locked")) {
+      var n = el.getAttribute("data-locked");
+      toast(n + "일차는 곧 추가될 예정이에요 🔒");
+      return;
+    }
+    if (el.hasAttribute("data-day")) {
+      var day = el.getAttribute("data-day");
+      if (day !== state.day) {
+        state.day = day;
+        quiz = null;
+        cards = null;
+        render();
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }
+      return;
+    }
+    if (el.hasAttribute("data-mode")) {
+      var mode = el.getAttribute("data-mode");
+      if (mode !== state.mode) {
+        if (state.mode === "quiz" && quiz && !quiz.results) collectAnswers();
+        state.mode = mode;
+        render();
+        window.scrollTo({ top: 0, behavior: "auto" });
+      }
+      return;
+    }
+    if (el.hasAttribute("data-opt")) {
+      var parts = el.getAttribute("data-opt").split("|");
+      var qi = parseInt(parts[0], 10);
+      var bi = parseInt(parts[1], 10);
+      var value = parts.slice(2).join("|");
+      quiz.answers[qi][bi] = value;
+      var inp = document.querySelector('.blank[data-q="' + qi + '"][data-b="' + bi + '"]');
+      if (inp) inp.value = value;
+      var sibs = el.parentNode.querySelectorAll(".opt");
+      for (var k = 0; k < sibs.length; k++) sibs[k].classList.remove("sel");
+      el.classList.add("sel");
+      return;
+    }
+
+    var act = el.getAttribute("data-act");
+    if (!act) return;
+
+    if (act === "flip") { flipCard(); return; }
+    if (act === "known") { markKnown(); return; }
+    if (act === "review") { markReview(); return; }
+    if (act === "restart") {
+      cards.flipped = false;
+      var d = DATA.days[state.day];
+      var ids = [];
+      for (var i = 0; i < d.cards.length; i++) ids.push(state.day + "c" + i);
+      cards.queue = shuffle(ids);
+      renderCardsStage();
+      toast("전체 카드를 처음부터 다시 볼게요");
+      return;
+    }
+    if (act === "gotoquiz") {
+      state.mode = "quiz";
+      render();
+      window.scrollTo({ top: 0, behavior: "auto" });
+      return;
+    }
+    if (act === "hint") {
+      var hi = parseInt(el.getAttribute("data-i"), 10);
+      quiz.hints[hi] = !quiz.hints[hi];
+      collectAnswers();
+      renderQuizStage();
+      return;
+    }
+    if (act === "opts") {
+      var oi = parseInt(el.getAttribute("data-i"), 10);
+      quiz.opts[oi] = !quiz.opts[oi];
+      collectAnswers();
+      renderQuizStage();
+      return;
+    }
+    if (act === "grade") { grade(); return; }
+    if (act === "reset") { resetQuiz(); return; }
+  });
+
+  document.addEventListener("input", function (ev) {
+    var t = ev.target;
+    if (!t || !t.classList || !t.classList.contains("blank")) return;
+    var q = parseInt(t.getAttribute("data-q"), 10);
+    var b = parseInt(t.getAttribute("data-b"), 10);
+    quiz.answers[q][b] = t.value;
+  });
+
+  document.addEventListener("keydown", function (ev) {
+    var t = ev.target;
+    if (t && t.classList && t.classList.contains("blank") && ev.key === "Enter") {
+      ev.preventDefault();
+      var all = Array.prototype.slice.call(document.querySelectorAll(".blank"));
+      var idx = all.indexOf(t);
+      if (idx >= 0 && idx < all.length - 1) all[idx + 1].focus();
+      else {
+        var btn = document.querySelector('[data-act="grade"]');
+        if (btn) btn.click();
+      }
+    }
+    if (t && t.id === "fc" && (ev.key === "Enter" || ev.key === " ")) {
+      ev.preventDefault();
+      flipCard();
+    }
+  });
+
+  /* ============ 시작 ============ */
+  loadAll();
+  render();
+})();
+</script>
+</body>
+</html>
