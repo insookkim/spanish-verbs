@@ -96,6 +96,10 @@
   table.conj.tight th,table.conj.tight td{padding:7px 3px}
   table.conj.tight thead th:first-child{width:54px}
   table.conj.tight tbody th{font-size:11px;padding-left:5px}
+  table.conj.flat thead th{font-size:13.5px;line-height:1.25}
+  table.conj.flat thead th:first-child{width:auto;background:var(--soft)}
+  table.conj.flat td{font-size:13.5px;padding:7px 5px}
+  table.conj.flat td:nth-child(2){color:var(--accent2);font-weight:800}
   table.conj tr.outside th,table.conj tr.outside td{background:#F7F3EC}
   table.conj tr.outside td{color:#7E7166}
   .e{color:var(--accent);font-weight:800}
@@ -465,10 +469,92 @@
             expl: "seguir: e→i → yo → sigo (gu→g)"
           }
         ]
+      },
+      d3: {
+        label: "3일차",
+        title: "현재진행형 · 과거분사",
+        summary: "estar + -ando/-iendo로 '지금 하는 중', 과거분사 -ado/-ido와 필수 불규칙 9개까지.",
+        cards: [
+          { v: "hablar", m: "말하다", s: "yo", a: "hablando", ex: "Ahora estoy hablando con mi madre.", ko: "지금 어머니와 이야기하고 있어요.", n: "estar + -ando · 지금 하는 중" },
+          { v: "vivir", m: "살다", s: "nosotros", a: "viviendo", ex: "Estamos viviendo en Seúl.", ko: "우리는 서울에 살고 있어요.", n: "-ir → -iendo" },
+          { v: "leer", m: "읽다", s: "yo", a: "leyendo", ex: "Estoy leyendo un libro de historia.", ko: "나는 역사책을 읽고 있어요.", n: "모음+모음 → y" },
+          { v: "oír", m: "듣다", s: "ellos", a: "oyendo", ex: "Están oyendo música en la habitación.", ko: "그들은 방에서 음악을 듣고 있어요.", n: "oír → oyendo" },
+          { v: "dormir", m: "자다", s: "ellos", a: "durmiendo", ex: "Los niños están durmiendo.", ko: "아이들이 자고 있어요.", n: "-ir 어간 o→u" },
+          { v: "pedir", m: "부탁하다 · 주문하다", s: "ella", a: "pidiendo", ex: "Está pidiendo la cuenta.", ko: "그녀는 계산서를 요청하고 있어요.", n: "-ir 어간 e→i" },
+          { v: "decir", m: "말하다", s: "tú", a: "diciendo", ex: "¿Qué estás diciendo?", ko: "무슨 말을 하는 거야?", n: "-ir 어간 e→i" },
+          { v: "hablar", m: "말하다", s: "yo", a: "hablado", ex: "He hablado con el profesor esta mañana.", ko: "오늘 아침 교수님과 이야기했어요.", n: "과거분사 · -ar → -ado" },
+          { v: "vivir", m: "살다", s: "ellos", a: "vivido", ex: "Han vivido en España tres años.", ko: "그들은 스페인에서 3년 살았어요.", n: "과거분사 · -ir → -ido" },
+          { v: "hacer", m: "하다 · 만들다", s: "yo", a: "hecho", ex: "Todavía no he hecho la tarea.", ko: "나는 아직 숙제를 안 했어요.", n: "불규칙 과거분사" },
+          { v: "ver", m: "보다", s: "tú", a: "visto", ex: "¿Has visto esa película?", ko: "그 영화 봤어?", n: "ver → visto" },
+          { v: "escribir", m: "쓰다", s: "yo", a: "escrito", ex: "Ya he escrito el correo.", ko: "나는 이미 메일을 썼어요.", n: "escribir → escrito" },
+          { v: "decir", m: "말하다", s: "yo", a: "dicho", ex: "Ya te he dicho la verdad.", ko: "나는 이미 너에게 사실대로 말했어.", n: "decir → dicho" },
+          { v: "abrir", m: "열다", s: "yo", a: "abierto", ex: "¿Has abierto la ventana?", ko: "창문 열었어?", n: "abrir → abierto" },
+          { v: "volver", m: "돌아오다", s: "ella", a: "vuelto", ex: "Ella ha vuelto de Madrid.", ko: "그녀는 마드리드에서 돌아왔어요.", n: "volver → vuelto" },
+          { v: "poner", m: "놓다", s: "yo", a: "puesto", ex: "He puesto el libro en la mesa.", ko: "책을 탁자 위에 놓았어요.", n: "poner → puesto" },
+          { v: "romper", m: "깨뜨리다", s: "él", a: "roto", ex: "El niño ha roto el vaso.", ko: "아이가 유리잔을 깨뜨렸어요.", n: "romper → roto" },
+          { v: "morir", m: "죽다", s: "él", a: "muerto", ex: "Su abuelo ha muerto este año.", ko: "그의 할아버지가 올해 돌아가셨어요.", n: "morir → muerto" }
+        ],
+        quiz: [
+          {
+            text: "Ahora mismo (hablar, yo) estoy {} con mi madre.",
+            answers: [["hablando"]],
+            options: [["hablando", "hablado", "hablo", "hablamos"]],
+            hint: "estoy 뒤에는 '지금 하는 중'을 뜻하는 현재분사가 와요.",
+            expl: "estar + 현재분사 → estoy hablando (지금 말하는 중)"
+          },
+          {
+            text: "Los niños están (dormir) {} en su habitación.",
+            answers: [["durmiendo"]],
+            options: [["dormiendo", "durmiendo", "dormido", "duermen"]],
+            hint: "dormir는 -ir 동사라 현재분사에서 어간이 바뀌어요(o→u).",
+            expl: "dormir: o→u + -iendo → durmiendo"
+          },
+          {
+            text: "Estoy (leer) {} un libro muy interesante.",
+            answers: [["leyendo"]],
+            options: [["leendo", "leyendo", "leído", "leer"]],
+            hint: "모음 e로 끝나는 어간 뒤에서는 i가 y로 바뀌어요.",
+            expl: "leer → leyendo (모음+모음 → y) · 참고로 과거분사는 leído"
+          },
+          {
+            text: "¿Qué estás (decir) {}? No te entiendo.",
+            answers: [["diciendo"]],
+            options: [["decendo", "diciendo", "dicho", "dices"]],
+            hint: "decir는 -ir 어간변화 동사예요(e→i).",
+            expl: "decir → diciendo (e→i) · dicho는 과거분사"
+          },
+          {
+            text: "El museo está (abrir) {} hasta las seis.",
+            answers: [["abierto"]],
+            options: [["abriendo", "abrido", "abierto", "abrir"]],
+            hint: "여기서는 '열려 있는 상태'라서 과거분사가 필요해요.",
+            expl: "abrir → abierto (불규칙 과거분사) · abriendo는 '여는 중'"
+          },
+          {
+            text: "Todavía no he (hacer) {} la tarea.",
+            answers: [["hecho"]],
+            options: [["hacido", "hecho", "haciendo", "hice"]],
+            hint: "haber(he) 뒤에는 과거분사가 와요. hacer는 불규칙!",
+            expl: "hacer → hecho · he hecho = (지금까지) 했다"
+          },
+          {
+            text: "¿Has (ver) {} ya esa película?",
+            answers: [["visto"]],
+            options: [["veído", "visto", "viendo", "veo"]],
+            hint: "ver의 과거분사는 규칙형이 아니라 불규칙이에요.",
+            expl: "ver → visto · ¿Has visto…? = (그 영화) 봤어?"
+          },
+          {
+            text: "Ahora estoy (escribir) {} un correo y ya he (escribir) {} tres hoy.",
+            answers: [["escribiendo"], ["escrito"]],
+            options: [["escribiendo", "escribido", "escrito", "escribo"], ["escrito", "escribiendo", "escribido", "escribió"]],
+            hint: "지금 하는 중은 현재분사, haber 뒤는 과거분사예요.",
+            expl: "현재분사 escribiendo · 과거분사 escrito — 같은 동사도 쓰임이 달라요"
+          }
+        ]
       }
     },
     upcoming: [
-      { n: 3, t: "현재진행형 · 과거분사", ex: "estoy hablando · hablado" },
       { n: 4, t: "현재완료", ex: "he hablado" },
       { n: 5, t: "점과거", ex: "hablé" },
       { n: 6, t: "선과거", ex: "había hablado" },
@@ -571,6 +657,88 @@
     ]
   };
 
+  /* 3일차 현재진행형 · 분사 표 */
+  var T_ESTAR = {
+    cols: [
+      { h: "estar", s: "현재형" }
+    ],
+    rows: [
+      ["est^oy^"],
+      ["estás"],
+      ["está"],
+      ["estamos"],
+      ["estáis"],
+      ["están"]
+    ]
+  };
+
+  var T_GER_REG = {
+    cols: [
+      { h: "원형", s: "" },
+      { h: "현재분사", s: "" },
+      { h: "규칙", s: "" }
+    ],
+    rows: [
+      ["hablar", "habl^ando^", "-ar"],
+      ["estudiar", "estudi^ando^", "-ar"],
+      ["comer", "com^iendo^", "-er"],
+      ["vivir", "viv^iendo^", "-ir"]
+    ]
+  };
+
+  var T_GER_IRR = {
+    cols: [
+      { h: "원형", s: "" },
+      { h: "현재분사", s: "" },
+      { h: "포인트", s: "" }
+    ],
+    rows: [
+      ["leer", "le~y~endo", "모음+y"],
+      ["oír", "o~y~endo", "모음+y"],
+      ["ir", "~y~endo", "모음+y"],
+      ["dormir", "d~u~rmiendo", "o→u"],
+      ["pedir", "p~i~diendo", "e→i"],
+      ["sentir", "s~i~ntiendo", "e→i"],
+      ["decir", "d~i~ciendo", "e→i"],
+      ["venir", "v~i~niendo", "e→i"],
+      ["seguir", "s~i~guiendo", "e→i"]
+    ]
+  };
+
+  var T_PP_REG = {
+    cols: [
+      { h: "원형", s: "" },
+      { h: "과거분사", s: "" },
+      { h: "규칙", s: "" }
+    ],
+    rows: [
+      ["hablar", "habl^ado^", "-ar"],
+      ["comer", "com^ido^", "-er"],
+      ["vivir", "viv^ido^", "-ir"],
+      ["leer", "le^í^do", "악센트"],
+      ["oír", "o^í^do", "악센트"]
+    ]
+  };
+
+  var T_PP_IRR = {
+    cols: [
+      { h: "원형", s: "" },
+      { h: "과거분사", s: "" },
+      { h: "뜻", s: "" }
+    ],
+    rows: [
+      ["hacer", "hecho", "하다"],
+      ["decir", "dicho", "말하다"],
+      ["escribir", "escrito", "쓰다"],
+      ["ver", "visto", "보다"],
+      ["abrir", "abierto", "열다"],
+      ["volver", "vuelto", "돌아오다"],
+      ["poner", "puesto", "놓다"],
+      ["romper", "roto", "깨뜨리다"],
+      ["morir", "muerto", "죽다"]
+    ]
+  };
+
   var IRREG = [
     {
       verb: "ser", meaning: "~이다 (성질·정체·직업)", badge: "완전 불규칙",
@@ -603,6 +771,13 @@
     ["entender", "이해하다"], ["poder", "~할 수 있다"], ["volver", "돌아오다"],
     ["dormir", "자다"], ["jugar", "놀다·경기하다"], ["pedir", "주문하다·부탁하다"],
     ["repetir", "반복하다"], ["seguir", "계속하다·따라가다"]
+  ];
+
+  var VOCAB3 = [
+    ["leer", "읽다"], ["oír", "듣다"], ["escribir", "쓰다"],
+    ["dormir", "자다"], ["pedir", "부탁·주문하다"], ["decir", "말하다"],
+    ["ver", "보다"], ["hacer", "하다·만들다"], ["poner", "놓다"],
+    ["volver", "돌아오다"], ["abrir", "열다"], ["romper", "깨뜨리다"]
   ];
 
   var BOOT = [
@@ -780,6 +955,22 @@
     return h;
   }
 
+  function flatTableHTML(cols, rows) {
+    var h = '<div class="tbl-wrap"><table class="conj tight flat"><thead><tr>';
+    for (var c = 0; c < cols.length; c++) {
+      h += "<th>" + mk(cols[c].h) + (cols[c].s ? "<small>" + esc(cols[c].s) + "</small>" : "") + "</th>";
+    }
+    h += "</tr></thead><tbody>";
+    for (var r = 0; r < rows.length; r++) {
+      h += "<tr>";
+      for (var c2 = 0; c2 < rows[r].length; c2++) {
+        h += "<td>" + mk(rows[r][c2]) + "</td>";
+      }
+      h += "</tr>";
+    }
+    return h + "</tbody></table></div>";
+  }
+
   function axisHTML(stemColor) {
     var h = '<div class="axis">';
     if (stemColor) {
@@ -838,7 +1029,7 @@
 
       h += aheadHTML("3", "핵심 어휘", "오늘 퀴즈에 그대로 나오는 동사들이에요. 뜻을 먼저 확실히 잡아 두세요.",
         vocabHTML(VOCAB1));
-    } else {
+    } else if (state.day === "d2") {
       h += aheadHTML("1", "부츠 동사의 핵심 규칙", "어간 모음이 바뀌어도 nosotros와 vosotros는 원래 모음 그대로예요. 표에 색을 칠하면 부츠 모양이 돼요.",
         bootHTML() +
         '<div class="axis"><span><i class="s-c"></i>부츠 안 4칸 = 어간 변화</span><span><i style="background:#DCD0C2"></i>부츠 밖 2칸 = 그대로</span></div>' +
@@ -858,13 +1049,38 @@
 
       h += aheadHTML("5", "핵심 어휘", "어간이 바뀌는 동사는 뜻과 함께 통째로 익히면 훨씬 오래 남아요.",
         vocabHTML(VOCAB2));
+    } else {
+      h += aheadHTML("1", "현재진행형 = estar + 현재분사",
+        "'지금 하고 있는 중'을 말할 때는 estar를 주어에 맞춰 변형하고, 동사 원형을 현재분사로 바꿔 뒤에 붙여요.",
+        conjTableHTML(T_ESTAR, true, false) +
+        '<div class="tip"><b>공식</b> · <b>estar(현재형) + 현재분사</b> = ~하는 중이다. «Estoy hablando»(지금 말하는 중) · «¿Qué estás haciendo?»(뭐 하고 있어?)<br><b>언제 쓰나</b> · 눈앞에서 진행 중인 일에만 써요. «Todos los días hablo español»(매일 말해요)처럼 습관·일반 사실은 1일차 현재시제로 말해요.</div>');
+
+      h += aheadHTML("2", "현재분사 만들기 -ando / -iendo",
+        "-ar는 -ando, -er·-ir는 -iendo로 어미만 바꿔요. 대신 -ir 동사 몇 개는 어간까지 바뀌어요.",
+        flatTableHTML(T_GER_REG.cols, T_GER_REG.rows) +
+        flatTableHTML(T_GER_IRR.cols, T_GER_IRR.rows) +
+        '<div class="tip"><b>핵심</b> · 어간변화는 <b>-ir 동사에만</b> 있어요(pedir→pidiendo, dormir→durmiendo). -ar·-er 동사는 어간이 그대로예요. 모음으로 끝나는 어간 뒤에서는 i가 y로 바뀌어요(leer→le<span class=\"s\">y</span>endo).<br><b>참고</b> · «ir»는 진행형(estoy yendo)보다 현재시제 «voy»를 훨씬 많이 써요. 형태만 알아 두세요.</div>');
+
+      h += aheadHTML("3", "과거분사 만들기 -ado / -ido",
+        "-ar는 -ado, -er·-ir는 -ido. 현재분사와 모양이 헷갈리니 끝 글자로 구분하세요.",
+        flatTableHTML(T_PP_REG.cols, T_PP_REG.rows) +
+        '<div class="tip"><b>악센트 주의</b> · 모음으로 끝나는 어간 뒤의 -ido는 i에 악센트를 찍어요: leído · oído · creído · caído.<br><b>구분 포인트</b> · <b>-ando/-iendo</b>는 "지금 하는 중"(estoy hablando), <b>-ado/-ido</b>는 "끝난 상태·형용사"(La puerta está cerrada)이거나 haber와 함께 쓰는 재료예요(4일차 현재완료: he hablado).</div>');
+
+      h += aheadHTML("4", "필수 불규칙 과거분사 9개",
+        "B1 시험과 회화에 계속 나오는 9개예요. 규칙형(-ado/-ido)이 아니니 통째로 외우세요.",
+        flatTableHTML(T_PP_IRR.cols, T_PP_IRR.rows) +
+        '<div class="tip"><b>묶어서 외우기</b> · -cho: hecho · dicho / -sto: visto · puesto / -to: escrito · abierto · vuelto · roto · muerto<br><b>단골 표현</b> · «¿Qué has hecho?»(뭐 했어?) · «¿Has visto…?»(…봤어?) · «Ya te he dicho…»(이미 말했잖아)</div>');
+
+      h += aheadHTML("5", "핵심 어휘",
+        "이 분사들과 함께 쓰이는 동사들이에요. 원형 → 분사로 소리 내어 이어 말해 보세요.",
+        vocabHTML(VOCAB3));
     }
     return h;
   }
 
   function upcomingHTML() {
     var h = '<section class="card"><h3>다가오는 커리큘럼</h3>';
-    h += '<p class="lead">오늘 배운 현재시제 위에 이 순서로 쌓여요. 매일 같은 시간, 20분씩.</p><ol class="up-list">';
+    h += '<p class="lead">지금까지 배운 내용 위에 이 순서로 쌓여요. 매일 같은 시간, 20분씩.</p><ol class="up-list">';
     for (var i = 0; i < DATA.upcoming.length; i++) {
       var u = DATA.upcoming[i];
       h += '<li><span class="num">' + u.n + "</span><div class=\"txt\"><b>" + esc(u.t) + "</b><small>" + esc(u.ex) + "</small></div>";
