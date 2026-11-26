@@ -1073,9 +1073,97 @@
           }
         ]
       },
+      d10: {
+        label: "10일차",
+        date: "2026-11-26",
+        title: "1~9일차 누적 복습",
+        summary: "과거 3총사 · 직설법 vs 접속법 · 명령형을 한 장으로 정리하고, 1~9일차 동사변형을 섞은 카드 22장과 혼합 퀴즈 8문제로 확인해요.",
+        cards: [
+          { v: "hablar", m: "말하다", s: "yo · 현재", a: "hablo", ex: "Hablo español con mi hija todos los días.", ko: "나는 매일 딸과 스페인어로 이야기해요.", n: "1일차 · -ar 규칙 yo → -o" },
+          { v: "poder", m: "~할 수 있다", s: "tú · 현재", a: "puedes", ex: "¿Puedes repetir, por favor?", ko: "다시 말해 줄 수 있어요?", n: "2일차 · o→ue 부츠 (nosotros만 podemos)" },
+          { v: "estudiar", m: "공부하다", s: "현재진행", a: "estoy estudiando", ex: "Ahora estoy estudiando los verbos.", ko: "지금 동사를 공부하고 있어요.", n: "3일차 · estar + -ando = 지금 하는 중" },
+          { v: "escribir", m: "쓰다", s: "과거분사", a: "escrito", ex: "He escrito tres correos esta mañana.", ko: "오늘 아침에 메일 세 통을 썼어요.", n: "3일차 · 불규칙 분사 escribir → escrito" },
+          { v: "terminar", m: "끝내다", s: "현재완료", a: "he terminado", ex: "Ya he terminado el informe de hoy.", ko: "오늘 보고서는 벌써 끝냈어요.", n: "4일차 · haber + -ado · «ya»" },
+          { v: "comer", m: "먹다", s: "yo · 점과거", a: "comí", ex: "Ayer comí con mi jefe.", ko: "어제 상사와 점심을 먹었어요.", n: "5일차 · «ayer» 끝난 시점 → 점과거 (-í)" },
+          { v: "hacer", m: "하다 · 만들다", s: "yo · 점과거", a: "hice", ex: "El año pasado hice un curso de español.", ko: "작년에 스페인어 과정을 들었어요.", n: "5일차 · 불규칙 어간 hic- (3인칭은 hizo)" },
+          { v: "ir", m: "가다", s: "yo · 점과거", a: "fui", ex: "Anoche fui al cine solo.", ko: "어젯밤 혼자 영화관에 갔어요.", n: "5일차 · ir와 ser의 점과거가 똑같이 fui" },
+          { v: "vivir", m: "살다", s: "yo · 선과거", a: "vivía", ex: "Antes vivía cerca del trabajo.", ko: "예전에는 직장 근처에 살았어요.", n: "6일차 · «antes» 습관·상태 → 선과거 (-ía)" },
+          { v: "ser", m: "~이다", s: "yo · 선과거", a: "era", ex: "De niño era muy tímido.", ko: "어릴 때 나는 아주 수줍었어요.", n: "6일차 · 불규칙 3총사 ser → era" },
+          { v: "mientras", m: "…하는 동안", s: "배경 vs 사건", a: "leía · sonó", ex: "Mientras leía, sonó el teléfono.", ko: "읽고 있는데 전화가 울렸어요.", n: "6일차 · 배경은 선과거(leía), 끼어든 사건은 점과거(sonó)" },
+          { v: "saber", m: "알다", s: "선과거 vs 점과거", a: "sabía · supe", ex: "No sabía nada, pero ayer supe la verdad.", ko: "아무것도 몰랐는데 어제 진실을 알게 됐어요.", n: "6일차 · 알고 있던 상태 sabía / 알게 된 순간 supe" },
+          { v: "tener", m: "가지다", s: "yo · 미래", a: "tendré", ex: "El próximo mes tendré más tiempo.", ko: "다음 달엔 시간이 더 있을 거예요.", n: "7일차 · 공통 어간 tendr- + -é" },
+          { v: "hacer", m: "하다 · 만들다", s: "yo · 조건", a: "haría", ex: "Yo lo haría de otra manera.", ko: "저라면 다르게 할 것 같아요.", n: "7일차 · har- + -ía · «yo diría que»도 같은 방식" },
+          { v: "poder", m: "~해 줄 수 있어요?", s: "usted · 조건", a: "¿Podría...?", ex: "¿Podría hablar con el gerente?", ko: "지점장님과 이야기할 수 있을까요?", n: "7일차 · 공손한 부탁은 조건형 podr- + -ía" },
+          { v: "venir", m: "오다", s: "tú · 접속법", a: "vengas", ex: "Espero que vengas a la fiesta.", ko: "네가 파티에 오길 바라요.", n: "8일차 · vengo → veng- + -as · «espero que»" },
+          { v: "ser", m: "~이다", s: "접속법", a: "sea", ex: "No creo que sea una buena idea.", ko: "좋은 생각인 것 같지 않아요.", n: "8일차 · DISHES · «no creo que» = 불확실" },
+          { v: "haber", m: "있다 (사물)", s: "접속법", a: "haya", ex: "Es posible que haya mucha gente.", ko: "사람이 많을지도 몰라요.", n: "8일차 · DISHES · «haya + 과거분사»는 현재완료의 접속법" },
+          { v: "decir", m: "말하다", s: "tú 긍정 명령", a: "di", ex: "Di la verdad, por favor.", ko: "사실대로 말해 줘.", n: "9일차 · 불규칙 8총사 di (부정은 no digas)" },
+          { v: "hacer", m: "하다 · 만들다", s: "tú 부정 명령", a: "no hagas", ex: "No hagas eso, es peligroso.", ko: "그러지 마, 위험해.", n: "9일차 · 부정은 접속법 어간 hag- + -as" },
+          { v: "dar + me + lo", m: "그것을 나에게 줘", s: "tú 긍정 명령", a: "dámelo", ex: "Dámelo, por favor.", ko: "그것 좀 주세요.", n: "9일차 · 대명사는 동사 뒤에 붙이고 강세 부호 (da + me + lo)" },
+          { v: "levantarse", m: "일어나다", s: "tú 부정 명령", a: "no te levantes", ex: "No te levantes tan tarde mañana.", ko: "내일은 그렇게 늦게 일어나지 마.", n: "9일차 · 부정은 재귀대명사를 동사 앞에 떼어 써요" }
+        ],
+        quiz: [
+          {
+            text: "Hoy (terminar, yo) {} el informe, así que ya puedo descansar.",
+            answers: [["he terminado"]],
+            options: [["he terminado", "terminé", "terminaba", "terminaré"]],
+            hint: "«hoy»는 아직 끝나지 않은 기간이에요. 4일차에 배운 시제를 떠올려 보세요.",
+            expl: "hoy(아직 안 끝난 기간) → 현재완료 he terminado · «ayer»였다면 terminé"
+          },
+          {
+            text: "Ayer (comer, nosotros) {} en un restaurante nuevo.",
+            answers: [["comimos"]],
+            options: [["comimos", "comíamos", "hemos comido", "comeremos"]],
+            hint: "«ayer»는 이미 끝난 시점이에요. -er 동사의 nosotros 점과거 어미는 -imos예요.",
+            expl: "ayer + 끝난 단발 사건 → 점과거 comimos · «todos los días»였다면 comíamos"
+          },
+          {
+            text: "Cuando era niño, (jugar, yo) {} al fútbol todos los días.",
+            answers: [["jugaba"]],
+            options: [["jugaba", "jugué", "he jugado", "juego"]],
+            hint: "«todos los días»는 반복되는 과거 습관이에요. 6일차 선과거!",
+            expl: "습관·반복 + «cuando era niño» → 선과거 jugaba · 한 번의 경기였다면 jugué"
+          },
+          {
+            text: "Mientras (leer, yo) {} en el sofá, (sonar) {} el teléfono.",
+            answers: [["leía"], ["sonó"]],
+            options: [["leía", "leí", "leo", "leeré"], ["sonó", "sonaba", "suena", "sueno"]],
+            hint: "배경(읽고 있던 중)은 선과거, 끼어든 사건(전화가 울렸다)은 점과거예요.",
+            expl: "leer → leía(배경) · sonar → sonó(사건) · «mientras» + 선과거, 사건은 점과거"
+          },
+          {
+            text: "El próximo año (tener, yo) {} más tiempo libre.",
+            answers: [["tendré"]],
+            options: [["tendré", "tendría", "tengo", "tuve"]],
+            hint: "«el próximo año»는 앞으로의 일이에요. tener의 미래 어간은 tendr-!",
+            expl: "tener → tendr- + -é = tendré · 조건형이면 tendría(«si tuviera tiempo»)"
+          },
+          {
+            text: "Disculpe, ¿(poder, usted) {} repetir la pregunta?",
+            answers: [["podría"]],
+            options: [["podría", "podré", "puede", "pudo"]],
+            hint: "낯선 사람·윗사람에게 부탁할 때는 7일차 조건형이 가장 공손해요.",
+            expl: "¿Podría + 원형? = 공손한 부탁 · poder → podr- + -ía"
+          },
+          {
+            text: "Espero que (venir, tú) {} a la fiesta.",
+            answers: [["vengas"]],
+            options: [["vengas", "vienes", "vendrás", "ven"]],
+            hint: "«espero que» 뒤에는 접속법이에요. venir의 yo는 vengo!",
+            expl: "venir → vengo → veng- + -as = vengas · «espero que»는 소망이라 접속법"
+          },
+          {
+            text: "No (hacer, tú) {} eso y (decir, tú) {} la verdad.",
+            answers: [["hagas"], ["di"]],
+            options: [["hagas", "haz", "haces", "hiciste"], ["di", "digas", "dices", "dijiste"]],
+            hint: "부정 명령은 «no + 접속법 2인칭», 긍정 명령은 불규칙 8총사예요.",
+            expl: "no hagas(부정 = 접속법) · di(긍정 불규칙) · 긍정은 «haz», 부정은 «no digas»로 바뀌어요"
+          }
+        ]
+      },
     },
     upcoming: [
-      { n: 10, t: "접속법 심화", ex: "si tuviera…" }
+      { n: 11, t: "접속법 심화", ex: "si tuviera… · 새 진도는 화·금" }
     ]
   };
 
@@ -1922,6 +2010,101 @@
     ["pase", "들어오세요"], ["sígame", "따라오세요"], ["dígame", "말씀하세요 (전화 응대)"]
   ];
 
+  /* 10일차 누적 복습 표 */
+  var T_REV_PAST = {
+    cols: [
+      { h: "시제", s: "" },
+      { h: "만드는 법", s: "" },
+      { h: "신호 표현", s: "" },
+      { h: "예문", s: "" }
+    ],
+    rows: [
+      ["현재완료", "he + -ado/-ido", "hoy · ya · nunca", "He comido."],
+      ["점과거", "-é / -iste / -ió", "ayer · anoche", "Comí ayer."],
+      ["선과거", "-aba / -ía", "antes · siempre", "Antes comía."]
+    ]
+  };
+
+  var T_REV_MOOD = {
+    cols: [
+      { h: "앞 표현", s: "" },
+      { h: "뒤 절", s: "" },
+      { h: "예문", s: "" }
+    ],
+    rows: [
+      ["creo que · sé que", "직설법", "Creo que ^viene^."],
+      ["quiero que · espero que", "접속법", "Espero que ^vengas^."],
+      ["no creo que · dudo que", "접속법", "No creo que ^sea^."],
+      ["ojalá · es posible que", "접속법", "Ojalá que ^haya^ sol."]
+    ]
+  };
+
+  var T_REV_IMP = {
+    cols: [
+      { h: "누구에게", s: "" },
+      { h: "긍정", s: "" },
+      { h: "부정", s: "" },
+      { h: "만드는 법", s: "" }
+    ],
+    rows: [
+      ["tú", "habl^a^", "no habl^es^", "현재 3인칭 / 접속법 2인칭"],
+      ["usted", "habl^e^", "no habl^e^", "접속법 3인칭 단수"],
+      ["ustedes", "habl^en^", "no habl^en^", "접속법 3인칭 복수"],
+      ["대명사", "d^i^me", "no me digas", "긍정은 붙임 / 부정은 앞"]
+    ]
+  };
+
+  var T_REV_IRR_A = {
+    cols: [
+      { h: "동사", s: "" },
+      { h: "현재", s: "yo" },
+      { h: "점과거", s: "yo" },
+      { h: "선과거", s: "yo" },
+      { h: "접속법", s: "yo" }
+    ],
+    rows: [
+      ["hacer", "hago", "hice", "hacía", "haga"],
+      ["ir", "voy", "fui", "iba", "vaya"],
+      ["ser", "soy", "fui", "era", "sea"],
+      ["tener", "tengo", "tuve", "tenía", "tenga"],
+      ["poner", "pongo", "puse", "ponía", "ponga"],
+      ["decir", "digo", "dije", "decía", "diga"],
+      ["venir", "vengo", "vine", "venía", "venga"],
+      ["saber", "s^é^", "supe", "sabía", "sepa"]
+    ]
+  };
+
+  var T_REV_IRR_B = {
+    cols: [
+      { h: "동사", s: "" },
+      { h: "미래", s: "yo" },
+      { h: "조건", s: "yo" },
+      { h: "tú 명령", s: "" },
+      { h: "부정 명령", s: "tú" }
+    ],
+    rows: [
+      ["hacer", "haré", "haría", "haz", "no hagas"],
+      ["ir", "iré", "iría", "ve", "no vayas"],
+      ["ser", "seré", "sería", "s^é^", "no seas"],
+      ["tener", "tendré", "tendría", "ten", "no tengas"],
+      ["poner", "pondré", "pondría", "pon", "no pongas"],
+      ["decir", "diré", "diría", "di", "no digas"],
+      ["venir", "vendré", "vendría", "ven", "no vengas"],
+      ["saber", "sabré", "sabría", "sabe", "no sepas"]
+    ]
+  };
+
+  var VOCAB10 = [
+    ["hoy · esta semana", "오늘 · 이번 주 (현재완료)"], ["ya · todavía no", "벌써 · 아직 (현재완료)"],
+    ["ayer · anoche", "어제 · 어젯밤 (점과거)"], ["antes · siempre", "예전에 · 항상 (선과거)"],
+    ["cuando era niño", "어릴 때 (선과거)"], ["mientras", "…하는 동안 (배경)"],
+    ["de repente", "갑자기 (끼어든 사건)"], ["voy a + 원형", "~할 거예요 (이미 정한 계획)"],
+    ["¿Podría + 원형?", "~해 주실 수 있나요? (공손)"], ["quiero que + 접속법", "…하길 바라요"],
+    ["espero que + 접속법", "…하길 기대해요"], ["no creo que + 접속법", "…인 것 같지 않아요"],
+    ["ojalá que + 접속법", "…이길 바라요 (간절)"], ["es posible que + 접속법", "…일 가능성이 있어요"],
+    ["no te preocupes", "걱정하지 마"], ["disculpe · perdone", "실례합니다"]
+  ];
+
   var IRREG = [
     {
       verb: "ser", meaning: "~이다 (성질·정체·직업)", badge: "완전 불규칙",
@@ -2510,13 +2693,38 @@
       h += aheadHTML("7", "실전 필수 어휘", 
         "명령형으로 가장 많이 쓰는 동사와 통째로 외우면 좋은 표현이에요. «동사 + 상황»으로 소리 내어 말해 보세요.",
         vocabHTML(VOCAB9));
+    } else if (state.day === "d10") {
+      h += aheadHTML("1", "과거 3총사 — 시간 감각으로 갈라요",
+        "1~9일차에서 배운 과거 표현을 한자리에 모았어요. 문장에 «언제»가 적혀 있으면 시제는 거의 정해져 있어요.",
+        flatTableHTML(T_REV_PAST.cols, T_REV_PAST.rows) +
+        '<div class="tip"><b>현재완료</b> · 아직 끝나지 않은 기간(hoy · esta semana)과 경험(«¿Has estado en España?») · 불규칙 분사 9개는 3일차 그대로예요.<br><b>점과거</b> · 끝난 시점의 단발 사건 · ir·ser는 똑같이 «fui», hacer «hice», tener «tuve».<br><b>선과거</b> · 습관·배경·상태 · 불규칙은 ir·ser·ver 셋뿐(«iba · era · veía»).<br><b>겹쳐 쓰기</b> · «Mientras leía(배경), sonó el teléfono(사건)» — 두 시제를 한 문장에 섞는 게 B1의 핵심이에요.</div>');
+
+      h += aheadHTML("2", "직설법 vs 접속법 — «que» 앞에서 갈라져요",
+        "확실한 사실은 직설법, 소망·감정·불확실은 접속법이에요. 앞 표현만 읽고도 뒤 절의 법을 고를 수 있어요.",
+        flatTableHTML(T_REV_MOOD.cols, T_REV_MOOD.rows) +
+        '<div class="tip"><b>만드는 공식</b> · 현재 «yo»에서 -o를 떼고 반대 어미 — -ar는 -e 갈래, -er·-ir은 -a 갈래.<br><b>DISHES 6총사</b> · <b>d</b>é · <b>v</b>aya(ir) · <b>s</b>ea · <b>h</b>aya · <b>e</b>sté · <b>s</b>epa(saber) — 통째로 외워요.<br><b>주어가 같으면 원형</b> · «Quiero ir» (✗ Quiero que yo vaya) · 주어가 다를 때만 «que + 접속법».<br><b>함정</b> · «a lo mejor»는 직설법, «quizás · tal vez»는 접속법이에요.</div>');
+
+      h += aheadHTML("3", "명령형 — tú만 두 얼굴, 나머지는 접속법",
+        "tú 긍정은 현재 3인칭을 그대로, 부정은 접속법 2인칭이에요. usted·ustedes는 긍정과 부정이 같은 모양이라 더 쉬워요.",
+        flatTableHTML(T_REV_IMP.cols, T_REV_IMP.rows) +
+        '<div class="tip"><b>불규칙 8총사</b> · ven · di · sal · haz · ten · ve · pon · sé («Vin Diesel has ten weapons»).<br><b>부정은 정반대</b> · «haz → no hagas» · «ve → no vayas» · «sé → no seas» — 어간이 접속법으로 바뀌어요.<br><b>대명사</b> · 긍정 «hazlo · dime» ↔ 부정 «no lo hagas · no me digas» · 붙여 쓸 때 길어지면 강세 부호(«dámelo»).<br><b>정중하게</b> · 명령형 대신 «¿Podría + 원형?»(7일차 조건형)을 쓰면 한층 부드러워요.</div>');
+
+      h += aheadHTML("4", "핵심 불규칙 8동사 — 시제별로 나란히",
+        "hacer · ir · ser · tener · poner · decir · venir · saber는 모든 시제에서 모양이 바뀌어요. «yo» 형태끼리 놓고 보면 규칙이 보여요.",
+        flatTableHTML(T_REV_IRR_A.cols, T_REV_IRR_A.rows) +
+        flatTableHTML(T_REV_IRR_B.cols, T_REV_IRR_B.rows) +
+        '<div class="tip"><b>겹치는 형태</b> · ir와 ser의 점과거는 똑같이 <b>fui · fuiste · fue</b> — 문맥으로 갈라요(«Fui al cine» / «Fue un día especial»).<br><b>-go형</b> · tengo · pongo · digo · vengo의 «g»가 그대로 접속법 어간이 돼요(tenga · ponga · diga · venga).<br><b>미래·조건</b> · 어간 12개(tendr- · podr- · har- · dir- · saldr- · vendr- · pondr- · sabr- · querr- · habr- · cabr- · valdr-)에 -é / -ía만 붙여요.</div>');
+
+      h += aheadHTML("5", "복습 어휘 — 신호 표현부터 통문장까지",
+        "문장 앞에 오는 신호 표현만 알아도 시제·법이 절반은 정해져요. 소리 내어 읽어 보세요.",
+        vocabHTML(VOCAB10));
     }
     return h;
   }
 
   function upcomingHTML() {
     var h = '<section class="card"><h3>다가오는 커리큘럼</h3>';
-    h += '<p class="lead">지금까지 배운 내용 위에 이 순서로 쌓여요. 매일 같은 시간, 20분씩.</p><ol class="up-list">';
+    h += '<p class="lead">새 문법은 화요일·금요일에, 나머지 요일은 누적 복습으로 쌓여요. 매일 같은 시간, 20분씩.</p><ol class="up-list">';
     for (var i = 0; i < DATA.upcoming.length; i++) {
       var u = DATA.upcoming[i];
       h += '<li><span class="num">' + u.n + "</span><div class=\"txt\"><b>" + esc(u.t) + "</b><small>" + esc(u.ex) + "</small></div>";
